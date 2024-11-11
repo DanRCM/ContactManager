@@ -6,17 +6,29 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author EIMMY OCHOA
+ * @author daniel24
  */
-public class RedSocial implements Atributo{
-    String red, valor ; //red actua como la descripcion, tipo Instagram, Facebook etc.
-    
-    public RedSocial(String r , String v){
-        red = r ;
-        valor = v ;
+public class RedSocial {
+    private String redSocial;
+    private String identificador;  // Ejemplo: @usuario
+
+    // Constructor
+    public RedSocial(String redSocial, String identificador) {
+        this.redSocial = redSocial;
+        this.identificador = identificador;
     }
-    
-    public void editar(){
-        
+
+    // Métodos getter
+    public String getRedSocial() {
+        return redSocial;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    @Override
+    public String toString() {
+        return redSocial + ": " + identificador;
     }
 }
