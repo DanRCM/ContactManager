@@ -8,6 +8,8 @@ package com.mycompany.contactadministrator.model;
  *
  * @author daniel24
  */
-public class Atributos {
+public abstract class Atributo<K,V> {
+    K descripcion ;
+    V valor ;
     
 }

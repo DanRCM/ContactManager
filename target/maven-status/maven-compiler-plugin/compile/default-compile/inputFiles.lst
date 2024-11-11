@@ -1,4 +1,22 @@
-/home/daniel24/NetBeansProjects/ContactAdministrator/src/main/java/module-info.java
-/home/daniel24/NetBeansProjects/ContactAdministrator/src/main/java/com/mycompany/contactadministrator/SecondaryController.java
-/home/daniel24/NetBeansProjects/ContactAdministrator/src/main/java/com/mycompany/contactadministrator/App.java
-/home/daniel24/NetBeansProjects/ContactAdministrator/src/main/java/com/mycompany/contactadministrator/PrimaryController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\view\AsociadoView.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\util\FechaUtil.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\util\ListaPersonalizada.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\model\FechaImportante.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\view\ContactoView.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\util\ContactoLista.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\view\FiltroView.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\controller\FiltroController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\model\Atributos.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\util\AtributoLista.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\controller\MainController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\view\MainView.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\controller\AsociadoController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\ContactAdministratorApp.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\SecondaryController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\module-info.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\controller\ContactoController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\controller\AtributoController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\model\ContactoRelacionado.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\PrimaryController.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\model\TipoContactoEnum.java
+C:\Users\EIMMY OCHOA\Documents\ED - Proyecto\ContactManager\src\main\java\com\mycompany\contactadministrator\model\Contacto.java
