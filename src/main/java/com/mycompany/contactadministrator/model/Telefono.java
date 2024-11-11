@@ -11,8 +11,8 @@ package com.mycompany.contactadministrator.model;
 public class Telefono implements Atributo {
     String descripcion, valor ;
     
-    public Telefono(String v){
-        descripcion = "Telefono" ;
+    public Telefono(String d , String v){
+        descripcion = d ;
         valor = v ;
     }
     

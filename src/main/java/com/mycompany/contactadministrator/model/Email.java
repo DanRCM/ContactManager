@@ -11,8 +11,8 @@ package com.mycompany.contactadministrator.model;
 public class Email implements Atributo {
     String descripcion, valor ;
     
-    public Email(String v){
-        descripcion = "Email" ;
+    public Email(String d , String v){
+        descripcion = d ;
         valor = v ;
     }
     
