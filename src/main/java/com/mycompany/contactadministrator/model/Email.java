@@ -6,10 +6,18 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author daniel24
+ * @author EIMMY OCHOA
  */
-public interface Atributo {
-  
-    public void editar() ;
+public class Email implements Atributo {
+    String descripcion, valor ;
+    
+    public Email(String v){
+        descripcion = "Email" ;
+        valor = v ;
+    }
+    
+    public void editar(){
+        
+    }
     
 }

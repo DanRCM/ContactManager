@@ -8,7 +8,7 @@ package com.mycompany.contactadministrator.model;
  *
  * @author daniel24
  */
-public abstract class Contacto {
+public interface Contacto {
     
     public abstract void crearContacto() ;
     public abstract void editarContacto() ;

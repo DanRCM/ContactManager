@@ -6,10 +6,18 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author daniel24
+ * @author EIMMY OCHOA
  */
-public interface Atributo {
-  
-    public void editar() ;
+public class Foto implements Atributo{
+    String descripcion, valor ;
+    
+    public Foto(String d ,String v){
+        descripcion = d ;
+        valor = v ;
+    }
+    
+    public void editar(){
+        
+    }
     
 }

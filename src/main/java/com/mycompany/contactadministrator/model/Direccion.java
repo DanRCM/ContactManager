@@ -6,8 +6,18 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author daniel24
+ * @author EIMMY OCHOA
  */
-public class ContactoRelacionado {
+public class Direccion implements Atributo{
+    String descripcion, valor ;
+    
+    public Direccion(String v){
+        descripcion = "Direccion" ;
+        valor = v ;
+    }
+    
+    public void editar(){
+        
+    }
     
 }

@@ -4,12 +4,31 @@
  */
 package com.mycompany.contactadministrator.model;
 
+import com.mycompany.contactadministrator.util.OurArrayList;
+
 /**
  *
  * @author EIMMY OCHOA
  */
-public class ContactoPersona extends Contacto {
+public class ContactoPersona implements Contacto {
+    //atributos 
+    Nombre nombre ;
+    Apellido apellido ;
+    Direccion direccion ;
+    OurArrayList<Email> l_emails ;
+    OurArrayList<Telefono> l_telefonos ;
+    OurArrayList<RedSocial> l_redes ;
+    OurArrayList<Foto> l_fotos ;
+    OurArrayList<Fecha> l_fechas ;
+    //no se si poner notas 
     
+    
+    //Constructor
+    public ContactoPersona(){
+        
+    }
+    
+    //Metodos de manejo
     public void crearContacto() {
         
     }

@@ -6,8 +6,20 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author daniel24
+ * @author EIMMY OCHOA
  */
-public class FechaImportante {
+public class Notas {
+    //datos asicionales no se si quede o no
+    
+    String descripcion, valor ;
+    
+    public Notas(String d , String v){
+        descripcion = d ;
+        valor = v ;
+    }
+    
+    public void editar(){
+        
+    }
     
 }

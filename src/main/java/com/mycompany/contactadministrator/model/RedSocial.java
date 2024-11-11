@@ -8,26 +8,15 @@ package com.mycompany.contactadministrator.model;
  *
  * @author EIMMY OCHOA
  */
-public class ContactoEmpresa implements Contacto {
+public class RedSocial implements Atributo{
+    String red, valor ; //red actua como la descripcion, tipo Instagram, Facebook etc.
     
-    public void crearContacto() {
-        
+    public RedSocial(String r , String v){
+        red = r ;
+        valor = v ;
     }
     
-    public void editarContacto() {
+    public void editar(){
         
     }
-    
-    public void eliminarContacto() {
-        
-    }
-    
-    public void asociarContacto(Contacto contacto) {
-        
-    }
-    
-    public  void verAsociados() {
-        
-    }
-    
 }

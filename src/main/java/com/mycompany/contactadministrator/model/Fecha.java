@@ -8,8 +8,16 @@ package com.mycompany.contactadministrator.model;
  *
  * @author daniel24
  */
-public interface Atributo {
-  
-    public void editar() ;
+public class Fecha implements Atributo{
+    String descripcion, valor ;
+    
+    public Fecha(String d , String v){
+        descripcion = d ;
+        valor = v ;
+    }
+    
+    public void editar(){
+        
+    }
     
 }
