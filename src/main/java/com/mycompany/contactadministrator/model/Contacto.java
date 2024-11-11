@@ -8,12 +8,23 @@ package com.mycompany.contactadministrator.model;
  *
  * @author daniel24
  */
-public interface Contacto {
-    
+public abstract class  Contacto {
+    //metodos abstractos
     public abstract void crearContacto() ;
     public abstract void editarContacto() ;
-    public abstract void eliminarContacto() ;
-    public abstract void asociarContacto(Contacto contacto) ;
-    public abstract void verAsociados() ;
+    
+    //metodos comunes
+    public void eliminarContacto() {
+        
+    }
+    
+    public void asociarContacto(Contacto contacto){
+        
+    }
+    
+    public void verAsociados() {
+        
+    }
+    
     
 }

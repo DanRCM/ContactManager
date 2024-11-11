@@ -10,7 +10,7 @@ import com.mycompany.contactadministrator.util.OurArrayList;
  *
  * @author EIMMY OCHOA
  */
-public class ContactoPersona implements Contacto {
+public class ContactoPersona extends Contacto {
     //atributos 
     Nombre nombre ;
     Apellido apellido ;
@@ -34,18 +34,6 @@ public class ContactoPersona implements Contacto {
     }
     
     public void editarContacto() {
-        
-    }
-    
-    public void eliminarContacto() {
-        
-    }
-    
-    public void asociarContacto(Contacto contacto) {
-        
-    }
-    
-    public  void verAsociados() {
         
     }
     

@@ -8,7 +8,7 @@ package com.mycompany.contactadministrator.model;
  *
  * @author EIMMY OCHOA
  */
-public class ContactoEmpresa implements Contacto {
+public class ContactoEmpresa extends Contacto {
     
     public void crearContacto() {
         
@@ -18,16 +18,5 @@ public class ContactoEmpresa implements Contacto {
         
     }
     
-    public void eliminarContacto() {
-        
-    }
-    
-    public void asociarContacto(Contacto contacto) {
-        
-    }
-    
-    public  void verAsociados() {
-        
-    }
     
 }
