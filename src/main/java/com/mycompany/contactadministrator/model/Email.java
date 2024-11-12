@@ -1,23 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author EIMMY OCHOA
+ * @author daniel24
  */
-public class Email implements Atributo {
-    String descripcion, valor ;
-    
-    public Email(String d , String v){
-        descripcion = d ;
-        valor = v ;
+
+public class Email {
+    private String direccion;
+    private String tipo;
+
+    public Email(String direccion, String tipo) {
+        this.direccion = direccion;
+        this.tipo = tipo;
     }
-    
-    public void editar(){
-        
+
+    public String getDireccion() {
+        return direccion;
     }
-    
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public String toString() {
+        return tipo + ": " + direccion;
+    }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.contactadministrator;
 
+import com.mycompany.contactadministrator.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,7 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-public class ContactAdministratorApp extends Application {
+public class ContactAdministratorApp extends Application{
 
     private static Scene scene;
 
@@ -32,7 +33,27 @@ public class ContactAdministratorApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        //launch();
+
+        Direccion direccionPersona = new Direccion("Calle Ficticia 123", "https://maps.google.com/?q=Calle+Ficticia+123");
+
+        ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo");
+        contactoPersona.agregarTelefono("123456789");
+        contactoPersona.agregarEmail(new Email("juan@ejemplo.com", "personal"));
+        contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));
+        contactoPersona.agregarFoto(new Foto("foto1.jpg"));
+
+        contactoPersona.mostrarContacto();
+
+        Direccion direccionEmpresa = new Direccion("Avenida Empresa 456", "https://maps.google.com/?q=Avenida+Empresa+456");
+
+        ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp", "Gerente de TI");
+        contactoEmpresa.agregarTelefono("987654321");
+        contactoEmpresa.agregarEmail(new Email("carlos@techcorp.com", "corporativo"));
+        contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "carlos-gomez"));
+        contactoEmpresa.agregarFoto(new Foto("foto2.jpg"));
+
+        contactoEmpresa.mostrarContacto();
     }
 
 }

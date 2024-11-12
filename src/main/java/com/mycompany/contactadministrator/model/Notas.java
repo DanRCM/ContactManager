@@ -9,7 +9,7 @@ package com.mycompany.contactadministrator.model;
  * @author EIMMY OCHOA
  */
 public class Notas {
-    //datos asicionales no se si quede o no
+    //datos adicionales no se si quede o no
     
     String descripcion, valor ;
     
@@ -21,5 +21,4 @@ public class Notas {
     public void editar(){
         
     }
-    
 }

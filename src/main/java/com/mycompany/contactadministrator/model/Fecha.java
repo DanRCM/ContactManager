@@ -8,16 +8,28 @@ package com.mycompany.contactadministrator.model;
  *
  * @author daniel24
  */
-public class Fecha implements Atributo{
-    String descripcion, valor ;
-    
-    public Fecha(String d , String v){
-        descripcion = d ;
-        valor = v ;
+import java.util.Date;
+
+public class Fecha {
+    private Date fecha;
+    private String descripcion;  // Ejemplo: "Cumpleaños", "Aniversario", etc.
+
+    public Fecha(Date fecha, String descripcion) {
+        this.fecha = fecha;
+        this.descripcion = descripcion;
     }
-    
-    public void editar(){
-        
+
+    public Date getFecha() {
+        return fecha;
     }
-    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return descripcion + ": " + fecha.toString();
+    }
 }
+

@@ -6,18 +6,22 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author EIMMY OCHOA
+ * @author daniel24
  */
-public class Foto implements Atributo{
-    String descripcion, valor ;
-    
-    public Foto(String d ,String v){
-        descripcion = d ;
-        valor = v ;
+public class Foto {
+    private String url;
+
+    // Constructor
+    public Foto(String url) {
+        this.url = url;
     }
-    
-    public void editar(){
-        
+
+    public String getUrl() {
+        return url;
     }
-    
+
+    @Override
+    public String toString() {
+        return url;
+    }
 }

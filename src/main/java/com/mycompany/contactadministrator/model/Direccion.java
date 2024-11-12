@@ -6,18 +6,29 @@ package com.mycompany.contactadministrator.model;
 
 /**
  *
- * @author EIMMY OCHOA
+ * @author daniel24
  */
-public class Direccion implements Atributo{
-    String descripcion, valor ;
-    
-    public Direccion(String v){
-        descripcion = "Direccion" ;
-        valor = v ;
+public class Direccion {
+    private String direccion;
+    private String enlaceGoogleMaps;
+
+    // Constructor
+    public Direccion(String direccion, String enlaceGoogleMaps) {
+        this.direccion = direccion;
+        this.enlaceGoogleMaps = enlaceGoogleMaps;
     }
-    
-    public void editar(){
-        
+
+    public String getDireccion() {
+        return direccion;
     }
-    
+
+    public String getEnlaceGoogleMaps() {
+        return enlaceGoogleMaps;
+    }
+
+    @Override
+    public String toString() {
+        return direccion + (enlaceGoogleMaps != null ? " (" + enlaceGoogleMaps + ")" : "");
+    }
 }
+
