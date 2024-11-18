@@ -81,29 +81,6 @@ public class Contacto {
     }
 
     // Método para mostrar detalles del contacto
-<<<<<<< HEAD
-    public void mostrarContacto() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Apellido: " + apellido);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Teléfonos: ");
-        for (String telefono : telefonos) {
-            System.out.println(" - " + telefono);
-        }
-        System.out.println("Emails: ");
-        for (Email email : emails) {
-            System.out.println(" - " + email);
-        }
-        System.out.println("Redes Sociales: ");
-        for (RedSocial redSocial : redesSociales) {
-            System.out.println(" - " + redSocial);
-        }
-        System.out.println("Fotos: ");
-        for (Foto foto : fotos) {
-            System.out.println(" - " + foto);
-        }
-    }
-=======
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -134,5 +111,4 @@ public class Contacto {
         return sb.toString();
     }
     
->>>>>>> Eimmy
 }

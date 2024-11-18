@@ -1,10 +1,7 @@
 package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
-<<<<<<< HEAD
-=======
 import com.mycompany.contactadministrator.util.OurArrayList;
->>>>>>> Eimmy
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,9 +36,6 @@ public class ContactAdministratorApp extends Application{
 
     public static void main(String[] args) {
         //launch();
-<<<<<<< HEAD
-
-=======
         
         OurArrayList contactos = cargarDatos() ;
         
@@ -77,7 +71,6 @@ public class ContactAdministratorApp extends Application{
     }
     
     public static OurArrayList cargarDatos(){
->>>>>>> Eimmy
         Direccion direccionPersona = new Direccion("Calle Ficticia 123", "https://maps.google.com/?q=Calle+Ficticia+123");
 
         ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo");
@@ -86,11 +79,6 @@ public class ContactAdministratorApp extends Application{
         contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));
         contactoPersona.agregarFoto(new Foto("foto1.jpg"));
 
-<<<<<<< HEAD
-        contactoPersona.mostrarContacto();
-
-=======
->>>>>>> Eimmy
         Direccion direccionEmpresa = new Direccion("Avenida Empresa 456", "https://maps.google.com/?q=Avenida+Empresa+456");
 
         ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp", "Gerente de TI");
@@ -98,10 +86,6 @@ public class ContactAdministratorApp extends Application{
         contactoEmpresa.agregarEmail(new Email("carlos@techcorp.com", "corporativo"));
         contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "carlos-gomez"));
         contactoEmpresa.agregarFoto(new Foto("foto2.jpg"));
-<<<<<<< HEAD
-
-        contactoEmpresa.mostrarContacto();
-=======
         
         //hacermos la lista 
         OurArrayList contactos = new OurArrayList(Contacto.class) ;
@@ -198,7 +182,6 @@ public class ContactAdministratorApp extends Application{
         contacto.agregarFoto(new Foto(f));
         
         return contacto ;
->>>>>>> Eimmy
     }
 
 }

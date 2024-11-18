@@ -50,8 +50,6 @@ public class OurArrayList<E> implements Iterable<E> {
         }
         return array[index];
     }
-<<<<<<< HEAD
-=======
     
     public void printList() {
         for (int i = 0; i < size; i++) {
@@ -63,7 +61,6 @@ public class OurArrayList<E> implements Iterable<E> {
         }
         System.out.println();
     }
->>>>>>> Eimmy
 
     // nuestra implementacion del método iterator
     @Override
