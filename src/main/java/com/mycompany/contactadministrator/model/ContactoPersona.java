@@ -22,8 +22,16 @@ public class ContactoPersona extends Contacto {
     }
 
     @Override
+<<<<<<< HEAD
     public void mostrarContacto() {
         super.mostrarContacto();
         System.out.println("Tipo de relación: " + tipoRelacion);
+=======
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()); // Llama al método toString() de la clase padre
+        sb.append("Tipo de relación: ").append(tipoRelacion).append("\n");
+        return sb.toString();
+>>>>>>> Eimmy
     }
 }
