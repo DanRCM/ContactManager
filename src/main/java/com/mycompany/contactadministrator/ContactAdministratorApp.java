@@ -2,6 +2,8 @@ package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
 import com.mycompany.contactadministrator.util.OurArrayList;
+import com.mycompany.contactadministrator.util.OurCircularDoubleList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +16,7 @@ import java.util.Scanner;
 /**
  * JavaFX App
  */
-public class ContactAdministratorApp extends Application{
+public class ContactAdministratorApp extends Application {
 
     private static Scene scene;
 
@@ -35,43 +37,52 @@ public class ContactAdministratorApp extends Application{
     }
 
     public static void main(String[] args) {
-        //launch();
-        
-        OurArrayList contactos = cargarDatos() ;
-        
+        // launch();
+
+        OurCircularDoubleList contactos = cargarDatos();
+
         menu();
-        
+        int i = -1;
         Scanner input = new Scanner(System.in);
-        System.out.print("Ingrese el numero de la opcion a realizar: ");
-        int i = input.nextInt() ;
-        input.nextLine() ;
-        
-        if(i == 1){
-            tipoContacto() ;
-            System.out.print("Ingrese el numero del contacto a crear: ");
-            int n = input.nextInt() ;
-            input.nextLine() ;
-            
-            if(n == 1){
-                ContactoPersona p = contactoPersona() ;
-                contactos.agregar(p);
-                System.out.println();
-                contactos.printList();
-                menu();
-            } else if(n == 2){
-                ContactoEmpresa e = contactoEmpresa();
-                contactos.agregar(e);
-                System.out.println();
-                contactos.printList();
+        while (i != 2) {
+            System.out.print("Ingrese el numero de la opcion a realizar: ");
+            try {
+                i = input.nextInt();
+                input.nextLine();
+            } catch (Exception e) {
+                input.nextLine();
+                System.err.println("Input no valido");
+                System.out.println("");
                 menu();
             }
+
+            if (i == 1) {
+                tipoContacto();
+                System.out.print("Ingrese el numero del contacto a crear: ");
+                int n = input.nextInt();
+                input.nextLine();
+
+                if (n == 1) {
+                    ContactoPersona p = contactoPersona();
+                    contactos.agregarUltimo(p);
+                    System.out.println();
+                    contactos.printList();
+                    menu();
+                } else if (n == 2) {
+                    ContactoEmpresa e = contactoEmpresa();
+                    contactos.agregarUltimo(e);
+                    System.out.println();
+                    contactos.printList();
+                    menu();
+                }
+            }
         }
-        
 
     }
-    
-    public static OurArrayList cargarDatos(){
-        Direccion direccionPersona = new Direccion("Calle Ficticia 123", "https://maps.google.com/?q=Calle+Ficticia+123");
+
+    public static OurCircularDoubleList cargarDatos() {
+        Direccion direccionPersona = new Direccion("Calle Ficticia 123",
+                "https://maps.google.com/?q=Calle+Ficticia+123");
 
         ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo");
         contactoPersona.agregarTelefono("123456789");
@@ -79,109 +90,112 @@ public class ContactAdministratorApp extends Application{
         contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));
         contactoPersona.agregarFoto(new Foto("foto1.jpg"));
 
-        Direccion direccionEmpresa = new Direccion("Avenida Empresa 456", "https://maps.google.com/?q=Avenida+Empresa+456");
+        Direccion direccionEmpresa = new Direccion("Avenida Empresa 456",
+                "https://maps.google.com/?q=Avenida+Empresa+456");
 
-        ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp", "Gerente de TI");
+        ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp",
+                "Gerente de TI");
         contactoEmpresa.agregarTelefono("987654321");
         contactoEmpresa.agregarEmail(new Email("carlos@techcorp.com", "corporativo"));
         contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "carlos-gomez"));
         contactoEmpresa.agregarFoto(new Foto("foto2.jpg"));
-        
-        //hacermos la lista 
-        OurArrayList contactos = new OurArrayList(Contacto.class) ;
-        
-        //anadimos los contactos
-        contactos.agregar(contactoPersona);
-        contactos.agregar(contactoEmpresa);
-        
+
+        // hacermos la lista
+        OurCircularDoubleList contactos = new OurCircularDoubleList<Contacto>();
+
+        // anadimos los contactos
+        contactos.agregarUltimo(contactoPersona);
+        contactos.agregarUltimo(contactoEmpresa);
+
         contactos.printList();
-        
-        return contactos ;
+
+        return contactos;
 
     }
-    
-    public static void menu(){
+
+    public static void menu() {
         System.out.println("Opciones para manejar contactos: ");
         System.out.println("1. Crear Contacto");
+        System.out.println("2. Cerrar ContactManager");
         System.out.println("");
     }
-    
-    public static void tipoContacto(){
+
+    public static void tipoContacto() {
         System.out.println("");
         System.out.println("Opciones de contacto: ");
         System.out.println("1. Persona");
         System.out.println("2. Empresa");
         System.out.println("");
     }
-    
-    public static ContactoPersona contactoPersona(){
+
+    public static ContactoPersona contactoPersona() {
         Scanner input = new Scanner(System.in);
         System.out.println("Ingresa el nombre: ");
-        String n = input.nextLine() ;
+        String n = input.nextLine();
         System.out.println("Ingresa el apellido: ");
-        String a = input.nextLine() ;
+        String a = input.nextLine();
         System.out.println("Ingresa la direccion: ");
-        String d1 = input.nextLine() ;
+        String d1 = input.nextLine();
         System.out.println("Ingresa el link de la direccion: ");
-        String d2 = input.nextLine() ;
-        Direccion d = new Direccion(d1,d2);
+        String d2 = input.nextLine();
+        Direccion d = new Direccion(d1, d2);
         System.out.println("Ingresa la relacion con la persona: ");
-        String r = input.nextLine() ;
-        ContactoPersona contacto = new ContactoPersona(n,a,d,r);
+        String r = input.nextLine();
+        ContactoPersona contacto = new ContactoPersona(n, a, d, r);
         System.out.println("Ingresa el telefono: ");
-        String t = input.nextLine() ;
+        String t = input.nextLine();
         contacto.agregarTelefono(t);
         System.out.println("Ingresa el email: ");
-        String e1 = input.nextLine() ;
+        String e1 = input.nextLine();
         System.out.println("Ingresa el tipo de email: ");
-        String e2 = input.nextLine() ;
-        contacto.agregarEmail(new Email(e1,e2)) ;
+        String e2 = input.nextLine();
+        contacto.agregarEmail(new Email(e1, e2));
         System.out.println("Ingresa el ususario de una red social: ");
-        String s1 = input.nextLine() ;
+        String s1 = input.nextLine();
         System.out.println("Ingresa el nombre de la red social: ");
-        String s2 = input.nextLine() ;
+        String s2 = input.nextLine();
         contacto.agregarRedSocial(new RedSocial(s2, s1));
         System.out.println("Ingresa la direccion de una foto: ");
-        String f = input.nextLine() ;
+        String f = input.nextLine();
         contacto.agregarFoto(new Foto(f));
-        
-        return contacto ;
+
+        return contacto;
     }
-    
-    public static ContactoEmpresa contactoEmpresa(){
+
+    public static ContactoEmpresa contactoEmpresa() {
         Scanner input = new Scanner(System.in);
         System.out.println("Ingresa el nombre: ");
-        String n = input.nextLine() ;
+        String n = input.nextLine();
         System.out.println("Ingresa el apellido: ");
-        String a = input.nextLine() ;
+        String a = input.nextLine();
         System.out.println("Ingresa la direccion: ");
-        String d1 = input.nextLine() ;
+        String d1 = input.nextLine();
         System.out.println("Ingresa el link de la direccion: ");
-        String d2 = input.nextLine() ;
-        Direccion d = new Direccion(d1,d2);
+        String d2 = input.nextLine();
+        Direccion d = new Direccion(d1, d2);
         System.out.println("Ingresa el nombre de la empresa: ");
-        String ne = input.nextLine() ;
+        String ne = input.nextLine();
         System.out.println("Ingresa el cargo en la empresa: ");
-        String c = input.nextLine() ;
-        ContactoEmpresa contacto = new ContactoEmpresa(n,a,d,ne,c);
+        String c = input.nextLine();
+        ContactoEmpresa contacto = new ContactoEmpresa(n, a, d, ne, c);
         System.out.println("Ingresa el telefono: ");
-        String t = input.nextLine() ;
+        String t = input.nextLine();
         contacto.agregarTelefono(t);
         System.out.println("Ingresa el email: ");
-        String e1 = input.nextLine() ;
+        String e1 = input.nextLine();
         System.out.println("Ingresa el tipo de email: ");
-        String e2 = input.nextLine() ;
-        contacto.agregarEmail(new Email(e1,e2)) ;
+        String e2 = input.nextLine();
+        contacto.agregarEmail(new Email(e1, e2));
         System.out.println("Ingresa el ususario de una red social: ");
-        String s1 = input.nextLine() ;
+        String s1 = input.nextLine();
         System.out.println("Ingresa el nombre de la red social: ");
-        String s2 = input.nextLine() ;
+        String s2 = input.nextLine();
         contacto.agregarRedSocial(new RedSocial(s2, s1));
         System.out.println("Ingresa la direccion de una foto: ");
-        String f = input.nextLine() ;
+        String f = input.nextLine();
         contacto.agregarFoto(new Foto(f));
-        
-        return contacto ;
+
+        return contacto;
     }
 
 }

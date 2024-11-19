@@ -4,13 +4,16 @@
  */
 package com.mycompany.contactadministrator.util;
 
-class NodoDobleCircular<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+class NodoDoble<E> {
     E dato;                    
-    NodoDobleCircular<E> siguiente; 
-    NodoDobleCircular<E> anterior;  
+    NodoDoble<E> siguiente; 
+    NodoDoble<E> anterior;  
 
     // Constructor 
-    public NodoDobleCircular(E dato) {
+    public NodoDoble(E dato) {
         this.dato = dato;
         this.siguiente = null;
         this.anterior = null;
@@ -22,7 +25,7 @@ class NodoDobleCircular<E> {
  * @author EIMMY OCHOA
  */
 public class OurCircularDoubleList<E> {
-    private NodoDobleCircular<E> cabeza; 
+    private NodoDoble<E> cabeza; 
     private int tamaño;    
 
     // Constructor para inicializar la lista como vacía
@@ -32,14 +35,14 @@ public class OurCircularDoubleList<E> {
     }
 
     // Método para añadir un elemento al final de la lista
-    public void agregar(E dato) {
-        NodoDobleCircular<E> nuevoNodo = new NodoDobleCircular<>(dato);
+    public void agregarUltimo(E dato) {
+        NodoDoble<E> nuevoNodo = new NodoDoble<>(dato);
         if (cabeza == null) {          
             cabeza = nuevoNodo;
             cabeza.siguiente = cabeza;
             cabeza.anterior = cabeza;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior; 
+            NodoDoble<E> cola = cabeza.anterior; 
             cola.siguiente = nuevoNodo;   
             nuevoNodo.anterior = cola;     
             nuevoNodo.siguiente = cabeza;   
@@ -50,13 +53,13 @@ public class OurCircularDoubleList<E> {
 
     // Método para añadir un elemento al inicio de la lista
     public void agregarPrimero(E dato) {
-        NodoDobleCircular<E> nuevoNodo = new NodoDobleCircular<>(dato);
+        NodoDoble<E> nuevoNodo = new NodoDoble<>(dato);
         if (cabeza == null) {       
             cabeza = nuevoNodo;
             cabeza.siguiente = cabeza;
             cabeza.anterior = cabeza;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior; 
+            NodoDoble<E> cola = cabeza.anterior; 
             nuevoNodo.siguiente = cabeza;    
             nuevoNodo.anterior = cola;      
             cola.siguiente = nuevoNodo;    
@@ -91,7 +94,7 @@ public class OurCircularDoubleList<E> {
         if (cabeza.siguiente == cabeza) {
             cabeza = null;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior;
+            NodoDoble<E> cola = cabeza.anterior;
             cabeza = cabeza.siguiente;   
             cabeza.anterior = cola;    
             cola.siguiente = cabeza;  
@@ -109,7 +112,7 @@ public class OurCircularDoubleList<E> {
         if (cabeza.siguiente == cabeza) { 
             cabeza = null;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior;
+            NodoDoble<E> cola = cabeza.anterior;
             cola.anterior.siguiente = cabeza;  
             cabeza.anterior = cola.anterior;  
         }
@@ -121,7 +124,7 @@ public class OurCircularDoubleList<E> {
     public boolean contiene(E dato) {
         if (cabeza == null) return false;
 
-        NodoDobleCircular<E> actual = cabeza;
+        NodoDoble<E> actual = cabeza;
         do {
             if (actual.dato.equals(dato)) {
                 return true;
@@ -147,12 +150,12 @@ public class OurCircularDoubleList<E> {
             System.out.println("La lista está vacía");
             return;
         }
-        NodoDobleCircular<E> actual = cabeza;
+        NodoDoble<E> actual = cabeza;
         do {
             System.out.print(actual.dato + " <-> ");
             actual = actual.siguiente;
         } while (actual != cabeza);
-        System.out.println("(cabeza)"); 
+         
     }
 
     // Método para imprimir la lista completa desde la cola hasta la cabeza (recorrido inverso)
@@ -161,12 +164,35 @@ public class OurCircularDoubleList<E> {
             System.out.println("La lista está vacía");
             return;
         }
-        NodoDobleCircular<E> actual = cabeza.anterior; // Comienza desde la cola
+        NodoDoble<E> actual = cabeza.anterior; // Comienza desde la cola
         do {
             System.out.print(actual.dato + " <-> ");
             actual = actual.anterior;
         } while (actual != cabeza.anterior);
         System.out.println("(cabeza en reversa)"); // Indicar el final de la lista y referencia inversa
+    }
+
+    public OurCircularDoubleListIterator iterator(){
+        return new OurCircularDoubleListIterator();
+    }
+    public class OurCircularDoubleListIterator implements Iterator<E> {
+        private NodoDoble<E> actual = cabeza;
+
+        @Override
+        public boolean hasNext() {
+            // siempre hay un siguiente
+            return actual != null;
+        }
+
+        //devuelve el dato del nodo actual y avanza la lista
+        @Override
+        public E next() {
+            if(!hasNext()) throw new NoSuchElementException("No hay elementos");
+            E dato = actual.dato;
+            actual = actual.siguiente;
+            return dato;
+        }
+        
     }
     
 }
