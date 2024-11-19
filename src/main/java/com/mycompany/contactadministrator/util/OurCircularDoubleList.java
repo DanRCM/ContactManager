@@ -4,10 +4,12 @@
  */
 package com.mycompany.contactadministrator.util;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-class NodoDoble<E> {
+class NodoDoble<E> implements Serializable{
+    private static final long serialVersionUID = 42061452L;
     E dato;                    
     NodoDoble<E> siguiente; 
     NodoDoble<E> anterior;  
@@ -24,7 +26,8 @@ class NodoDoble<E> {
  *
  * @author EIMMY OCHOA
  */
-public class OurCircularDoubleList<E> {
+public class OurCircularDoubleList<E> implements Serializable{
+    private static final long serialVersionUID = -695065484L;
     private NodoDoble<E> cabeza; 
     private int tamaño;    
 

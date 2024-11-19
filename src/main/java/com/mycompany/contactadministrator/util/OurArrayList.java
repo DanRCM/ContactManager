@@ -1,9 +1,11 @@
 package com.mycompany.contactadministrator.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
-public class OurArrayList<E> implements Iterable<E> {
+public class OurArrayList<E> implements Iterable<E>, Serializable {
+    private static final long serialVersionUID = 377816483L;
     private E[] array;
     private int size = 0;
     private int capacidad;

@@ -6,6 +6,7 @@ package com.mycompany.contactadministrator.model;
  */
 
 public class ContactoPersona extends Contacto {
+    private static final long serialVersionUID = -5148453023L;
     private String tipoRelacion;
 
     public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion) {

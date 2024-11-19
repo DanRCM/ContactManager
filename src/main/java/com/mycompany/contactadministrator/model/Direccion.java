@@ -4,11 +4,14 @@
  */
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author daniel24
  */
-public class Direccion {
+public class Direccion implements Serializable {
+    private static final long serialVersionUID = 300819007L;
     private String direccion;
     private String enlaceGoogleMaps;
 

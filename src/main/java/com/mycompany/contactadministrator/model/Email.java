@@ -1,11 +1,14 @@
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author daniel24
  */
 
-public class Email {
+public class Email implements Serializable {
+    private static final long serialVersionUID = 2901786642L;
     private String direccion;
     private String tipo;
 

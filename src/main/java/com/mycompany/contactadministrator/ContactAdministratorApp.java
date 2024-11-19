@@ -1,8 +1,8 @@
 package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
-import com.mycompany.contactadministrator.util.OurArrayList;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
+import com.mycompany.contactadministrator.util.Serializador;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
+
 import java.util.Scanner;
 
 /**
@@ -39,7 +41,7 @@ public class ContactAdministratorApp extends Application {
     public static void main(String[] args) {
         // launch();
 
-        OurCircularDoubleList contactos = cargarDatos();
+        OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
 
         menu();
         int i = -1;
@@ -75,12 +77,18 @@ public class ContactAdministratorApp extends Application {
                     contactos.printList();
                     menu();
                 }
+
+            }
+            if (i == 2) {
+                System.out.println("Cerrando el programa...");
+                Serializador.serializarLista(contactos, "contactos.p1");
+                break;
             }
         }
 
     }
 
-    public static OurCircularDoubleList cargarDatos() {
+    public static OurCircularDoubleList<Contacto> cargarDatos() {
         Direccion direccionPersona = new Direccion("Calle Ficticia 123",
                 "https://maps.google.com/?q=Calle+Ficticia+123");
 
@@ -101,7 +109,7 @@ public class ContactAdministratorApp extends Application {
         contactoEmpresa.agregarFoto(new Foto("foto2.jpg"));
 
         // hacermos la lista
-        OurCircularDoubleList contactos = new OurCircularDoubleList<Contacto>();
+        OurCircularDoubleList<Contacto> contactos = new OurCircularDoubleList<>();
 
         // anadimos los contactos
         contactos.agregarUltimo(contactoPersona);

@@ -1,9 +1,12 @@
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 import com.mycompany.contactadministrator.util.OurArrayList;
 
-public class Contacto {
+public class Contacto implements Serializable{
     private String nombre;
+    private static final long serialVersionUID = 5483261784L;
     private String apellido;
     private Direccion direccion;
     private OurArrayList<String> telefonos;
