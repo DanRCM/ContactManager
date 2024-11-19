@@ -8,12 +8,14 @@ package com.mycompany.contactadministrator.model;
 public class ContactoEmpresa extends Contacto{
     private String nombreEmpresa;
     private String cargo;
+    private String paisResidencia;
 
     // Constructor
-    public ContactoEmpresa(String nombre, String apellido, Direccion direccion, String nombreEmpresa, String cargo) {
+    public ContactoEmpresa(String nombre, String apellido, Direccion direccion, String nombreEmpresa, String cargo,String paisResidencia) {
         super(nombre, apellido, direccion);
         this.nombreEmpresa = nombreEmpresa;
         this.cargo = cargo;
+        this.paisResidencia = paisResidencia;
     }
 
     public String getNombreEmpresa() {
@@ -32,6 +34,13 @@ public class ContactoEmpresa extends Contacto{
         this.cargo = cargo;
     }
 
+     public String getPaisResidencia() {
+        return paisResidencia;
+    }
+
+    public void setPaisResidencia(String paisResidencia) {
+        this.paisResidencia = paisResidencia;
+    }
     // Método para mostrar detalles del contacto de empresa
     @Override
     public void mostrarContacto() {
