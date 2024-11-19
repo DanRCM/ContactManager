@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 
 import java.util.Scanner;
@@ -92,7 +91,7 @@ public class ContactAdministratorApp extends Application {
         Direccion direccionPersona = new Direccion("Calle Ficticia 123",
                 "https://maps.google.com/?q=Calle+Ficticia+123");
 
-        ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo");
+        ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo", "30/08/2005");
         contactoPersona.agregarTelefono("123456789");
         contactoPersona.agregarEmail(new Email("juan@ejemplo.com", "personal"));
         contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));
@@ -102,7 +101,7 @@ public class ContactAdministratorApp extends Application {
                 "https://maps.google.com/?q=Avenida+Empresa+456");
 
         ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp",
-                "Gerente de TI");
+                "Gerente de TI", "Estados Unidos");
         contactoEmpresa.agregarTelefono("987654321");
         contactoEmpresa.agregarEmail(new Email("carlos@techcorp.com", "corporativo"));
         contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "carlos-gomez"));
@@ -149,7 +148,9 @@ public class ContactAdministratorApp extends Application {
         Direccion d = new Direccion(d1, d2);
         System.out.println("Ingresa la relacion con la persona: ");
         String r = input.nextLine();
-        ContactoPersona contacto = new ContactoPersona(n, a, d, r);
+        System.out.println("Ingresa su fecha de cumpleaños: ");
+        String fc = input.nextLine();
+        ContactoPersona contacto = new ContactoPersona(n, a, d, r, fc);
         System.out.println("Ingresa el telefono: ");
         String t = input.nextLine();
         contacto.agregarTelefono(t);
@@ -185,7 +186,9 @@ public class ContactAdministratorApp extends Application {
         String ne = input.nextLine();
         System.out.println("Ingresa el cargo en la empresa: ");
         String c = input.nextLine();
-        ContactoEmpresa contacto = new ContactoEmpresa(n, a, d, ne, c);
+        System.out.println("Ingresa el pais de la empresa: ");
+        String p = input.nextLine();
+        ContactoEmpresa contacto = new ContactoEmpresa(n, a, d, ne, c, p);
         System.out.println("Ingresa el telefono: ");
         String t = input.nextLine();
         contacto.agregarTelefono(t);
