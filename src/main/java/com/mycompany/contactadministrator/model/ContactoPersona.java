@@ -7,10 +7,12 @@ package com.mycompany.contactadministrator.model;
 
 public class ContactoPersona extends Contacto {
     private String tipoRelacion;
+    private String fechaCumpleaños;
 
-    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion) {
+    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion,String fechaCumpleaños) {
         super(nombre, apellido, direccion);
         this.tipoRelacion = tipoRelacion;
+        this.fechaCumpleaños = fechaCumpleaños;
     }
 
     public String getTipoRelacion() {
@@ -19,6 +21,13 @@ public class ContactoPersona extends Contacto {
 
     public void setTipoRelacion(String tipoRelacion) {
         this.tipoRelacion = tipoRelacion;
+    }
+    
+    public String getFechaCumpleaños() {
+        return fechaCumpleaños;
+    }
+    public void setFechaCumpleaños(String fechaCumpleaños) {
+        this.fechaCumpleaños = fechaCumpleaños;
     }
 
     @Override
