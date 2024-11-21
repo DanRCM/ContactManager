@@ -47,21 +47,13 @@ public class ContactAdministratorApp extends Application {
         Scanner input = new Scanner(System.in);
         while (i != 2) {
             System.out.print("Ingrese el numero de la opcion a realizar: ");
-            try {
-                i = input.nextInt();
-                input.nextLine();
-            } catch (Exception e) {
-                input.nextLine();
-                System.err.println("Input no valido");
-                System.out.println("");
-                menu();
-            }
-
+            i = pedirInputNumerico(input);
+            
             if (i == 1) {
                 tipoContacto();
                 System.out.print("Ingrese el numero del contacto a crear: ");
-                int n = input.nextInt();
-                input.nextLine();
+                int n = pedirInputNumerico(input);
+                
 
                 if (n == 1) {
                     ContactoPersona p = contactoPersona();
@@ -75,16 +67,39 @@ public class ContactAdministratorApp extends Application {
                     System.out.println();
                     contactos.printList();
                     menu();
-                }
+                } 
+                
 
             }
             if (i == 2) {
                 System.out.println("Cerrando el programa...");
                 Serializador.serializarLista(contactos, "contactos.p1");
                 break;
+            } else{
+                System.out.println("Input no valido \n ");
+                menu();
             }
         }
 
+    }
+
+    /**Pide un numero y valida que sea un numero,
+     * puedes mandar strings y no se cae xd
+     * @param Scanner
+     * @return -1 si no se ingreso un valor numerico
+     */
+    private static int pedirInputNumerico(Scanner input) {
+        int i = -1;
+        try {
+            i = input.nextInt();
+            input.nextLine();
+        } catch (Exception e) {
+            input.nextLine();
+            
+            System.out.println("");
+            
+        }
+        return i;
     }
 
     public static OurCircularDoubleList<Contacto> cargarDatos() {
