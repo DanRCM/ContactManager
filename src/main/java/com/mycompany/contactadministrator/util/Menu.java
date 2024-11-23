@@ -21,7 +21,7 @@ public class Menu {
                 OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
 
                 int j = -1;
-                while (j != 5) {
+                while (j != 6) {
                     if (iterator.hasNext()) {
                         // si todavia hay contactos
                         System.out.println(iterator.peek());
