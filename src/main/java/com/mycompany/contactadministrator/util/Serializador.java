@@ -12,7 +12,7 @@ import com.mycompany.contactadministrator.model.Contacto;
 public class Serializador {
     private Serializador(){}
 
-    @SuppressWarnings("unchecked")
+    
     public static OurCircularDoubleList<Contacto> deserializarLista(String archivo) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
             return (OurCircularDoubleList<Contacto>) in.readObject(); // Lee el objeto y lo convierte a una lista

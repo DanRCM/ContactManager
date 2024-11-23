@@ -1,6 +1,8 @@
 package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
+import com.mycompany.contactadministrator.util.Inputs;
+import com.mycompany.contactadministrator.util.Menu;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 import com.mycompany.contactadministrator.util.Serializador;
 
@@ -42,64 +44,43 @@ public class ContactAdministratorApp extends Application {
 
         OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
 
-        menu();
+        Menu.mostrarOpcionesContactos();
         int i = -1;
         Scanner input = new Scanner(System.in);
         while (i != 2) {
             System.out.print("Ingrese el numero de la opcion a realizar: ");
-            i = pedirInputNumerico(input);
-            
+            i = Inputs.pedirInputNumerico();
+
             if (i == 1) {
                 tipoContacto();
                 System.out.print("Ingrese el numero del contacto a crear: ");
-                int n = pedirInputNumerico(input);
-                
+                int n = Inputs.pedirInputNumerico();
 
                 if (n == 1) {
                     ContactoPersona p = contactoPersona();
                     contactos.agregarUltimo(p);
                     System.out.println();
                     contactos.printList();
-                    menu();
+                    Menu.mostrarOpcionesContactos();
                 } else if (n == 2) {
                     ContactoEmpresa e = contactoEmpresa();
                     contactos.agregarUltimo(e);
                     System.out.println();
                     contactos.printList();
-                    menu();
-                } 
-                
+                    Menu.mostrarOpcionesContactos();
+                }
 
             }
             if (i == 2) {
                 System.out.println("Cerrando el programa...");
                 Serializador.serializarLista(contactos, "contactos.p1");
                 break;
-            } else{
+            } else {
                 System.out.println("Input no valido \n ");
-                menu();
+                Menu.mostrarOpcionesContactos();
             }
         }
 
-    }
-
-    /**Pide un numero y valida que sea un numero,
-     * puedes mandar strings y no se cae xd
-     * @param Scanner
-     * @return -1 si no se ingreso un valor numerico
-     */
-    private static int pedirInputNumerico(Scanner input) {
-        int i = -1;
-        try {
-            i = input.nextInt();
-            input.nextLine();
-        } catch (Exception e) {
-            input.nextLine();
-            
-            System.out.println("");
-            
-        }
-        return i;
     }
 
     public static OurCircularDoubleList<Contacto> cargarDatos() {
@@ -133,13 +114,6 @@ public class ContactAdministratorApp extends Application {
 
         return contactos;
 
-    }
-
-    public static void menu() {
-        System.out.println("Opciones para manejar contactos: ");
-        System.out.println("1. Crear Contacto");
-        System.out.println("2. Cerrar ContactManager");
-        System.out.println("");
     }
 
     public static void tipoContacto() {

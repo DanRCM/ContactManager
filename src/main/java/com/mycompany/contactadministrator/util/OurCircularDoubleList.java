@@ -195,6 +195,33 @@ public class OurCircularDoubleList<E> implements Serializable{
             actual = actual.siguiente;
             return dato;
         }
+
+        public E previous(){
+            if(actual == null) throw new NoSuchElementException("No hay elementos");
+            actual = actual.anterior;
+            return actual.dato;
+        }
+        @Override
+        public void remove(){
+            if(actual == null) throw new NoSuchElementException("No hay elementos");
+            NodoDoble<E> nodoSiguiente = actual.siguiente;
+            NodoDoble<E> nodoAnterior = actual.anterior;
+            nodoAnterior.siguiente = nodoSiguiente;
+            nodoSiguiente.anterior = nodoAnterior;
+            if(actual == cabeza) cabeza = nodoSiguiente;
+            actual = nodoSiguiente;
+            tamaño--;
+
+            if(tamaño == 0) cabeza = null;
+        }
+
+        public E peek(){
+            if (!hasNext()) {
+                throw new NoSuchElementException("No hay elementos.");
+            }
+            return actual.dato;
+        }
+        
         
     }
     
