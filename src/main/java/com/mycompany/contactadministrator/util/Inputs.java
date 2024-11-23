@@ -27,6 +27,7 @@ public class Inputs {
             System.out.println("Ingrese un input numerico.");
     
         }
+        
         return i;
     }
 

@@ -1,7 +1,6 @@
 package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
-import com.mycompany.contactadministrator.util.Inputs;
 import com.mycompany.contactadministrator.util.Menu;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 import com.mycompany.contactadministrator.util.Serializador;
@@ -133,7 +132,7 @@ public class ContactAdministratorApp extends Application {
         System.out.println("Ingresa la direccion de una foto: ");
         String f = input.nextLine();
         contacto.agregarFoto(new Foto(f));
-
+        
         return contacto;
     }
 
@@ -171,7 +170,7 @@ public class ContactAdministratorApp extends Application {
         System.out.println("Ingresa la direccion de una foto: ");
         String f = input.nextLine();
         contacto.agregarFoto(new Foto(f));
-
+        
         return contacto;
     }
 
