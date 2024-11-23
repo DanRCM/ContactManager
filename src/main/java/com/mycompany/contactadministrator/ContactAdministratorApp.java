@@ -44,42 +44,27 @@ public class ContactAdministratorApp extends Application {
 
         OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
 
-        Menu.mostrarOpcionesContactos();
-        int i = -1;
-        Scanner input = new Scanner(System.in);
-        while (i != 2) {
-            System.out.print("Ingrese el numero de la opcion a realizar: ");
-            i = Inputs.pedirInputNumerico();
+        Menu.ejecutarMenu(contactos);
+        // Menu.mostrarOpcionesContactos();
+        // int i = -1;
+        // Scanner input = new Scanner(System.in);
+        // while (i != 2) {
+        //     System.out.print("Ingrese el numero de la opcion a realizar: ");
+        //     i = Inputs.pedirInputNumerico();
 
-            if (i == 1) {
-                tipoContacto();
-                System.out.print("Ingrese el numero del contacto a crear: ");
-                int n = Inputs.pedirInputNumerico();
+        //     if (i == 1) {
+        //         Menu.añadirContacto(contactos);
 
-                if (n == 1) {
-                    ContactoPersona p = contactoPersona();
-                    contactos.agregarUltimo(p);
-                    System.out.println();
-                    contactos.printList();
-                    Menu.mostrarOpcionesContactos();
-                } else if (n == 2) {
-                    ContactoEmpresa e = contactoEmpresa();
-                    contactos.agregarUltimo(e);
-                    System.out.println();
-                    contactos.printList();
-                    Menu.mostrarOpcionesContactos();
-                }
-
-            }
-            if (i == 2) {
-                System.out.println("Cerrando el programa...");
-                Serializador.serializarLista(contactos, "contactos.p1");
-                break;
-            } else {
-                System.out.println("Input no valido \n ");
-                Menu.mostrarOpcionesContactos();
-            }
-        }
+        //     }
+        //     if (i == 2) {
+        //         System.out.println("Cerrando el programa...");
+        //         Serializador.serializarLista(contactos, "contactos.p1");
+        //         break;
+        //     } else {
+        //         System.out.println("Input no valido \n ");
+        //         Menu.mostrarOpcionesContactos();
+        //     }
+        // }
 
     }
 
@@ -114,14 +99,6 @@ public class ContactAdministratorApp extends Application {
 
         return contactos;
 
-    }
-
-    public static void tipoContacto() {
-        System.out.println("");
-        System.out.println("Opciones de contacto: ");
-        System.out.println("1. Persona");
-        System.out.println("2. Empresa");
-        System.out.println("");
     }
 
     public static ContactoPersona contactoPersona() {
