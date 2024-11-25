@@ -7,7 +7,7 @@ public class MenuPrincipal {
     public static void mostrarOpcionesPrincipales() {
         System.out.println("Bienvenido a ContactManager! ");
         System.out.println("[1] Ver contactos");
-        System.out.println("[2] Buscar contactos (no funcional)");
+        System.out.println("[2] Buscar contactos");
         System.out.println("[3] Ordenar contactos (no funcional)");
         System.out.println("[4] Cerrar ContactManager y guardar lista de contactos.");
         System.out.println("");
@@ -21,6 +21,12 @@ public class MenuPrincipal {
             switch (opcion) {
                 case 1:
                     MenuContactos.mostrarMenuContactos(contactos);
+                    break;
+                case 2:
+                    MenuContactos.buscarContactos(contactos);
+                    break;
+                case 3:
+                    System.out.println("Ordenar contactos coming soon");
                     break;
                 case 4:
                     System.out.println("Cerrando el programa...");

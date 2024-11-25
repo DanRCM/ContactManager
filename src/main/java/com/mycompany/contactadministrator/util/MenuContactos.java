@@ -292,4 +292,48 @@ public class MenuContactos {
         System.out.println("[6] Regresar al menú principal.");
         System.out.println("");
     }
+
+    public static void buscarContactos(OurCircularDoubleList<Contacto> contactos) {
+        if (contactos.estaVacia()) {
+            System.out.println("No hay contactos disponibles para buscar.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre o apellido del contacto a buscar: ");
+        String terminoBusqueda = scanner.nextLine().toLowerCase();
+
+        boolean encontrado = false;
+        OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
+
+        // Guardar el primer contacto para evitar el bucle infinito
+        if (!iterator.hasNext()) {
+            System.out.println("No hay contactos disponibles para buscar.");
+            return;
+        }
+
+        Contacto primerContacto = iterator.next();
+        Contacto inicioContacto = primerContacto; // Guardar el contacto inicial
+
+        do {
+            // Comprobar el contacto actual
+            if (primerContacto.getNombre().toLowerCase().contains(terminoBusqueda) ||
+                    primerContacto.getApellido().toLowerCase().contains(terminoBusqueda)) {
+                System.out.println("Contacto encontrado: " + primerContacto);
+                encontrado = true;
+            }
+
+            // Avanzar al siguiente contacto
+            if (iterator.hasNext()) {
+                primerContacto = iterator.next();
+            } else {
+                break; // Salir si no hay más contactos
+            }
+
+        } while (primerContacto != inicioContacto); // Comprobar si hemos vuelto al inicio
+
+        if (!encontrado) {
+            System.out.println("No se encontraron contactos que coincidan con la búsqueda.");
+        }
+    }
 }
