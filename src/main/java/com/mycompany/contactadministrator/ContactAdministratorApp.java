@@ -1,10 +1,7 @@
 package com.mycompany.contactadministrator;
 
 import com.mycompany.contactadministrator.model.*;
-import com.mycompany.contactadministrator.util.DataLoader;
-import com.mycompany.contactadministrator.util.Menu;
-import com.mycompany.contactadministrator.util.OurCircularDoubleList;
-import com.mycompany.contactadministrator.util.Serializador;
+import com.mycompany.contactadministrator.util.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,9 +37,9 @@ public class ContactAdministratorApp{
 //    }
 
     public static void main(String[] args) {
-        OurCircularDoubleList<Contacto> contactos = new OurCircularDoubleList<>();
+        OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
 
-        Menu.ejecutarMenu(contactos);
+        MenuPrincipal.ejecutarMenu(contactos);
         //launch();
     }
 }
