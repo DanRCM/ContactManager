@@ -12,13 +12,13 @@ import com.mycompany.contactadministrator.model.Contacto;
 public class Serializador {
     private Serializador(){}
 
-    
+    @SuppressWarnings("unchecked")
     public static OurCircularDoubleList<Contacto> deserializarLista(String archivo) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(archivo))) {
             return (OurCircularDoubleList<Contacto>) in.readObject(); // Lee el objeto y lo convierte a una lista
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error al deserializar la lista: " + e.getMessage());
-            return ContactAdministratorApp.cargarDatos();
+            return DataLoader.cargarDatos();
         }
     }
 

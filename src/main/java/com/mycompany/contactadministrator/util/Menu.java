@@ -1,6 +1,5 @@
 package com.mycompany.contactadministrator.util;
 
-import com.mycompany.contactadministrator.ContactAdministratorApp;
 import com.mycompany.contactadministrator.model.Contacto;
 import com.mycompany.contactadministrator.model.ContactoEmpresa;
 import com.mycompany.contactadministrator.model.ContactoPersona;
@@ -23,7 +22,6 @@ public class Menu {
                 int j = -1;
                 while (j != 6) {
                     if (iterator.hasNext()) {
-                        // si todavia hay contactos
                         System.out.println(iterator.peek());
                         mostrarOpcionesContactos();
                         j = Inputs.pedirInputNumerico();
@@ -40,11 +38,9 @@ public class Menu {
                 Serializador.serializarLista(contactos, "contactos.p1");
                 break;
             } else {
-                System.out.println("Input no valido \n ");
-                
+                System.out.println("Opcion no valida \n ");
             }
         }
-
     }
 
     private static int opcionesSinContactos(OurCircularDoubleList<Contacto> contactos, int j) {
@@ -53,11 +49,11 @@ public class Menu {
             añadirContacto(contactos);
         } else if (j == 2) {
             System.out.println("Regresando al menu principal.");
-            j = 5;
+            return 6;
         } else {
             System.out.println("Ingrese una opcion valida");
         }
-        return j;
+        return -1;
     }
 
     /**
@@ -77,7 +73,7 @@ public class Menu {
             iterator.previous();
         } else if (j == 3) {
             System.out.println("Editando contacto: ");
-            // TODO editar contactos
+            //por hacer
         } else if (j == 4) {
             System.out.println("Eliminando contacto: ");
             System.out.println(iterator.peek().getNombre());
@@ -122,16 +118,17 @@ public class Menu {
         Menu.mostrarOpcionesContacto();
         System.out.print("Ingrese el numero del contacto a crear: ");
         int n = Inputs.pedirInputNumerico();
+        ContactFactory contactFactory = new ContactFactory();
 
         if (n == 1) {
-            ContactoPersona p = ContactAdministratorApp.contactoPersona();
-            contactos.agregarUltimo(p);
+            ContactoPersona persona = contactFactory.crearContactoPersona();
+            contactos.agregarUltimo(persona);
             System.out.println();
             contactos.printList();
             mostrarOpcionesContactos();
         } else if (n == 2) {
-            ContactoEmpresa e = ContactAdministratorApp.contactoEmpresa();
-            contactos.agregarUltimo(e);
+            ContactoEmpresa personaEmpresa = contactFactory.crearContactoEmpresa();
+            contactos.agregarUltimo(personaEmpresa);
             System.out.println();
             contactos.printList();
             mostrarOpcionesContactos();

@@ -3,12 +3,6 @@ package com.mycompany.contactadministrator.util;
 import java.util.Scanner;
 
 public class Inputs {
-
-    private Inputs(){}
-
-    // No se donde poner este metodo xd, se me hace raro dejarlo ahi en main y tener que llamarlo con Main.,,,
-
-
     /**
      * Pide un numero y valida que sea un numero,
      * puedes mandar strings y no se cae xd
@@ -24,14 +18,8 @@ public class Inputs {
             input.nextLine();
         } catch (Exception e) {
             input.nextLine();
-            System.out.println("Ingrese un input numerico.");
-    
+            System.out.println("Ingrese una opcion numerica.");
         }
-        
         return i;
     }
-
-
-
-
 }

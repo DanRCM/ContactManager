@@ -7,6 +7,6 @@ public class SecondaryController {
 
     @FXML
     private void switchToPrimary() throws IOException {
-        ContactAdministratorApp.setRoot("primary");
+        //ContactAdministratorApp.setRoot("primary");
     }
 }
