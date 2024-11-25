@@ -187,8 +187,10 @@ public class OurCircularDoubleList<E> implements Serializable {
 
         @Override
         public boolean hasNext() {
-            // siempre hay un siguiente
-            return actual != null;
+            if (cabeza == null) {
+                return false;
+            }
+            return true;
         }
 
         // devuelve el dato del nodo actual y avanza la lista
@@ -210,15 +212,17 @@ public class OurCircularDoubleList<E> implements Serializable {
 
         @Override
         public void remove() {
-            if (actual == null)
-                throw new NoSuchElementException("No hay elementos");
+            if (actual == null || tamaño == 0) {
+                throw new NoSuchElementException("No hay elementos para eliminar");
+            }
             NodoDoble<E> nodoSiguiente = actual.siguiente;
             NodoDoble<E> nodoAnterior = actual.anterior;
             nodoAnterior.siguiente = nodoSiguiente;
             nodoSiguiente.anterior = nodoAnterior;
-            if (actual == cabeza)
+            if (actual == cabeza) {
                 cabeza = nodoSiguiente;
-            actual = nodoSiguiente;
+            }
+            actual = nodoSiguiente; // Mueve el actual al siguiente nodo
             tamaño--;
 
             if (tamaño == 0) {
@@ -233,7 +237,5 @@ public class OurCircularDoubleList<E> implements Serializable {
             }
             return actual.dato;
         }
-
     }
-
 }

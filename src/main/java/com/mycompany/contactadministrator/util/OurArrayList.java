@@ -52,11 +52,23 @@ public class OurArrayList<E> implements Iterable<E>, Serializable {
         }
         return array[index];
     }
-    
+
+    public boolean eliminar(E elemento) {
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(elemento)) {
+                System.arraycopy(array, i + 1, array, i, size - i - 1);
+                array[size - 1] = null;
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void printList() {
         for (int i = 0; i < size; i++) {
-            int a = i ;
-            a++ ;
+            int a = i;
+            a++;
             System.out.println("Contacto " + a);
             System.out.print(array[i]);
             System.out.println();
@@ -64,7 +76,6 @@ public class OurArrayList<E> implements Iterable<E>, Serializable {
         System.out.println();
     }
 
-    // nuestra implementacion del método iterator
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
