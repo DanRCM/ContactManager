@@ -233,7 +233,8 @@ public class OurCircularDoubleList<E> implements Serializable {
 
         public E peek() {
             if (!hasNext()) {
-                throw new NoSuchElementException("No hay elementos.");
+                System.out.println("No hay elementos para mostrar.");
+                return null;
             }
             return actual.dato;
         }

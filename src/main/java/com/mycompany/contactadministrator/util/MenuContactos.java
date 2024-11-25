@@ -5,6 +5,7 @@ import com.mycompany.contactadministrator.model.*;
 import java.util.Scanner;
 
 public class MenuContactos {
+    private static final int OPCION_SALIR = 6;
 
     public static void mostrarMenuContactos(OurCircularDoubleList<Contacto> contactos) {
         if (contactos.estaVacia()) {
@@ -14,75 +15,87 @@ public class MenuContactos {
         }
 
         OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
-        int opcion = 0;
+        int opcion = -1;
         boolean hasContact = true;
 
         do {
             if (hasContact) {
-                System.out.println(iterator.peek()); // Muestra el contacto actual
+                Contacto contactoActual = iterator.peek();
+                if (contactoActual != null) {
+                    System.out.println(contactoActual); // Muestra el contacto actual
+                } else {
+                    hasContact = false; // No hay más contactos
+                }
             } else {
                 System.out.println("No hay más contactos.");
-                //evita que se muestre el menu de contactos si no hay mas contactos disponibles
-                if(mostrarOpcionesSinContactos(contactos) == 2)
-                    opcion = 6;
+                if (mostrarOpcionesSinContactos(contactos) == 2) {
+                    opcion = OPCION_SALIR;
+                }
             }
-            if(opcion != 6) {
+
+            if (opcion != OPCION_SALIR) {
                 mostrarOpcionesContactos();
                 opcion = Inputs.pedirInputNumerico();
                 hasContact = manejarOpcionesContactos(contactos, iterator, opcion);
+
+                // Verifica si la lista está vacía después de manejar la opción
+                if (contactos.estaVacia()) {
+                    System.out.println("No hay contactos disponibles.");
+                    mostrarOpcionesSinContactos(contactos);
+                    return; // Salir del método si no hay contactos
+                }
             }
-        } while (opcion != 6);
+        } while (opcion != OPCION_SALIR);
     }
 
     private static boolean manejarOpcionesContactos(OurCircularDoubleList<Contacto> contactos,
                                                     OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator, int opcion) {
         if (contactos.estaVacia()) {
             mostrarOpcionesSinContactos(contactos);
-            return false; // Indica que no hay contactos
+            return false;
         }
 
         switch (opcion) {
             case 1: // Siguiente contacto
                 if (iterator.hasNext()) {
-                    iterator.next(); // Mueve el iterador al siguiente
+                    iterator.next();
                 } else {
                     System.out.println("No hay más contactos.");
-                    return false; // Indica que no hay contacto actual
+                    return false;
                 }
                 break;
             case 2: // Contacto anterior
-                    iterator.previous(); // Mueve el iterador al anterior
+                    iterator.previous();
                 break;
-            case 3: // Editar contacto
-                if (iterator.hasNext()) {
-                    editarContacto(iterator.peek());
-                } else {
-                    System.out.println("No hay contacto para editar.");
-                }
+            case 3:
+                editarContacto(iterator.peek());
                 break;
-            case 4: // Eliminar contacto
-                if (iterator.hasNext()) {
-                    System.out.println("Eliminando contacto: ");
-                    iterator.remove();
-                    if (!iterator.hasNext()) {
-                        System.out.println("No hay más contactos después de la eliminación.");
-                        return false;
-                    }
-                } else {
-                    System.out.println("No hay contacto para eliminar.");
-                }
+            case 4:
+                eliminarContacto(iterator);
                 break;
             case 5: // Añadir contacto
                 System.out.println("Añadiendo contacto: ");
                 MenuContacto.añadirContacto(contactos);
                 break;
-            case 6: // Regresar al menú principal
+            case OPCION_SALIR: // Regresar al menú principal
                 System.out.println("Regresando al menú principal");
-                return false; // Indica que se está regresando
+                return false;
             default:
                 System.out.println("Elige una opción correcta.");
         }
-        return true; // Indica que hay un contacto actual
+        return true;
+    }
+
+    private static void eliminarContacto(OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator) {
+        if (iterator.hasNext()) {
+            System.out.println("Eliminando contacto: ");
+            iterator.remove();
+            if (!iterator.hasNext()) {
+                System.out.println("No hay más contactos después de la eliminación.");
+            }
+        } else {
+            System.out.println("No hay contacto para eliminar.");
+        }
     }
 
     private static void editarContacto(Contacto contacto) {
@@ -90,265 +103,172 @@ public class MenuContactos {
         System.out.println("Editando contacto: ");
         System.out.println(contacto);
 
-        // Verificar el tipo de contacto
         if (contacto instanceof ContactoPersona) {
-            // Menú para ContactoPersona
-            System.out.println("¿Qué deseas editar?");
-            System.out.println("[1] Nombre");
-            System.out.println("[2] Apellido");
-            System.out.println("[3] Dirección");
-            System.out.println("[4] Teléfonos");
-            System.out.println("[5] Emails");
-            System.out.println("[6] Fecha de nacimiento");
-            System.out.println("[7] Redes sociales");
-            System.out.println("[8] Fotos");
-            System.out.println("[9] Tipo de relación");
-            System.out.println("[10] Cancelar");
-
-            int opcion = Inputs.pedirInputNumerico();
-
-            switch (opcion) {
-                case 1:
-                    System.out.print("Nuevo nombre: ");
-                    String nuevoNombre = scanner.nextLine();
-                    contacto.setNombre(nuevoNombre);
-                    break;
-                case 2:
-                    System.out.print("Nuevo apellido: ");
-                    String nuevoApellido = scanner.nextLine();
-                    contacto.setApellido(nuevoApellido);
-                    break;
-                case 3:
-                    System.out.print("Nueva dirección: ");
-                    String nuevaDireccion = scanner.nextLine();
-                    System.out.println("Ingresa el link de la nueva dirección");
-                    String linkNuevaDireccion = scanner.nextLine();
-                    Direccion nuevaDireccionFinal = new Direccion(nuevaDireccion, linkNuevaDireccion);
-                    contacto.setDireccion(nuevaDireccionFinal);
-                    break;
-                case 4:
-                    System.out.print("¿Agregar o eliminar teléfono? [1] Agregar [2] Eliminar: ");
-                    int telefonoOpcion = Inputs.pedirInputNumerico();
-                    if (telefonoOpcion == 1) {
-                        System.out.print("Número de teléfono a agregar: ");
-                        String telefono = scanner.nextLine();
-                        contacto.agregarTelefono(telefono);
-                    } else if (telefonoOpcion == 2) {
-                        System.out.print("Número de teléfono a eliminar: ");
-                        String telefono = scanner.nextLine();
-                        contacto.getTelefonos().eliminar(telefono);
-                    }
-                    break;
-                case 5:
-                    System.out.print("¿Agregar o eliminar email? [1] Agregar [2] Eliminar: ");
-                    int emailOpcion = Inputs.pedirInputNumerico();
-                    if (emailOpcion == 1) {
-                        System.out.print("Email a agregar (formato: direccion tipo): ");
-                        String[] emailInput = scanner.nextLine().split(" ");
-                        if (emailInput.length == 2) {
-                            String direccionEmail = emailInput[0];
-                            String tipoEmail = emailInput[1];
-                            contacto.agregarEmail(new Email(direccionEmail, tipoEmail));
-                        } else {
-                            System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
-                        }
-                    } else if (emailOpcion == 2) {
-                        System.out.print("Email a eliminar (formato: direccion tipo): ");
-                        String[] emailInput = scanner.nextLine().split(" ");
-                        if (emailInput.length == 2) {
-                            String direccionEmail = emailInput[0];
-                            String tipoEmail = emailInput[1];
-                            contacto.getEmails().eliminar(new Email(direccionEmail, tipoEmail));
-                        } else {
-                            System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
-                        }
-                    }
-                    break;
-                case 6:
-                    System.out.print("Nueva fecha de nacimiento (formato: dd/mm/yyyy): ");
-                    String fechaNacimiento = scanner.nextLine();
-                    ((ContactoPersona) contacto).setFechaNacimiento(fechaNacimiento);
-                    break;
-                case 7:
-                    System.out.print("¿Agregar o eliminar red social? [1] Agregar [2] Eliminar: ");
-                    int redSocialOpcion = Inputs.pedirInputNumerico();
-                    if (redSocialOpcion == 1) {
-                        System.out.print("Usuario de Red social a agregar: ");
-                        String user = scanner.nextLine();
-                        System.out.println("Red Social");
-                        String redSocial = scanner.nextLine();
-                        RedSocial redSocialNueva = new RedSocial(redSocial, user);
-                        contacto.agregarRedSocial(redSocialNueva);
-                    } else if (redSocialOpcion == 2) {
-                        System.out.print("Red social a eliminar: ");
-                        String user = scanner.nextLine();
-                        System.out.println("Red Social");
-                        String redSocial = scanner.nextLine();
-                        RedSocial redSocialEliminar = new RedSocial(redSocial, user);
-                        contacto.getRedesSociales().eliminar(redSocialEliminar);
-                    }
-                    break;
-                case 8:
-                    System.out.print("¿Agregar o eliminar foto? [1] Agregar [2] Eliminar: ");
-                    int fotoOpcion = Inputs.pedirInputNumerico();
-                    if (fotoOpcion == 1) {
-                        System.out.print("Ruta de la foto a agregar: ");
-                        String rutaFoto = scanner.nextLine();
-                        Foto foto = new Foto(rutaFoto);
-                        contacto.agregarFoto(foto);
-                    } else if (fotoOpcion == 2) {
-                        System.out.print("Ruta de la foto a eliminar: ");
-                        String rutaFoto = scanner.nextLine();
-                        Foto foto = new Foto(rutaFoto);
-                        contacto.getFotos().eliminar(foto);
-                    }
-                    break;
-                case 9:
-                    System.out.print("Nuevo tipo de relación: ");
-                    String nuevoTipoRelacion = scanner.nextLine();
-                    ((ContactoPersona) contacto).setTipoRelacion(nuevoTipoRelacion);
-                    break;
-                case 10:
-                    System.out.println("Cancelando edición.");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
+            editarContactoPersona((ContactoPersona) contacto, scanner);
         } else if (contacto instanceof ContactoEmpresa) {
-            // Menú para ContactoEmpresa
-            System.out.println("¿Qué deseas editar?");
-            System.out.println("[1] Nombre");
-            System.out.println("[2] Apellido");
-            System.out.println("[3] Dirección");
-            System.out.println("[4] Teléfonos");
-            System.out.println("[5] Emails");
-            System.out.println("[6] Nombre de empresa");
-            System.out.println("[7] Cargo");
-            System.out.println("[8] País de residencia");
-            System.out.println("[9] Redes sociales");
-            System.out.println("[10] Fotos");
-            System.out.println("[11] Cancelar");
-
-            int opcion = Inputs.pedirInputNumerico();
-
-            switch (opcion) {
-                case 1:
-                    System.out.print("Nuevo nombre: ");
-                    String nuevoNombre = scanner.nextLine();
-                    contacto.setNombre(nuevoNombre);
-                    break;
-                case 2:
-                    System.out.print("Nuevo apellido: ");
-                    String nuevoApellido = scanner.nextLine();
-                    contacto.setApellido(nuevoApellido);
-                    break;
-                case 3:
-                    System.out.print("Nueva dirección: ");
-                    String nuevaDireccion = scanner.nextLine();
-                    System.out.println("Ingresa el link de la nueva dirección");
-                    String linkNuevaDireccion = scanner.nextLine();
-                    Direccion nuevaDireccionFinal = new Direccion(nuevaDireccion, linkNuevaDireccion);
-                    contacto.setDireccion(nuevaDireccionFinal);
-                    break;
-                case 4:
-                    System.out.print("¿Agregar o eliminar teléfono? [1] Agregar [2] Eliminar: ");
-                    int telefonoOpcion = Inputs.pedirInputNumerico();
-                    if (telefonoOpcion == 1) {
-                        System.out.print("Número de teléfono a agregar: ");
-                        String telefono = scanner.nextLine();
-                        contacto.agregarTelefono(telefono);
-                    } else if (telefonoOpcion == 2) {
-                        System.out.print("Número de teléfono a eliminar: ");
-                        String telefono = scanner.nextLine();
-                        contacto.getTelefonos().eliminar(telefono);
-                    }
-                    break;
-                case 5:
-                    System.out.print("¿Agregar o eliminar email? [1] Agregar [2] Eliminar: ");
-                    int emailOpcion = Inputs.pedirInputNumerico();
-                    if (emailOpcion == 1) {
-                        System.out.print("Email a agregar (formato: direccion tipo): ");
-                        String[] emailInput = scanner.nextLine().split(" ");
-                        if (emailInput.length == 2) {
-                            String direccionEmail = emailInput[0];
-                            String tipoEmail = emailInput[1];
-                            contacto.agregarEmail(new Email(direccionEmail, tipoEmail));
-                        } else {
-                            System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
-                        }
-                    } else if (emailOpcion == 2) {
-                        System.out.print("Email a eliminar (formato: direccion tipo): ");
-                        String[] emailInput = scanner.nextLine().split(" ");
-                        if (emailInput.length == 2) {
-                            String direccionEmail = emailInput[0];
-                            String tipoEmail = emailInput[1];
-                            contacto.getEmails().eliminar(new Email(direccionEmail, tipoEmail));
-                        } else {
-                            System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
-                        }
-                    }
-                    break;
-                case 6:
-                    System.out.print("Nuevo nombre de empresa: ");
-                    String nuevoNombreEmpresa = scanner.nextLine();
-                    ((ContactoEmpresa) contacto).setNombreEmpresa(nuevoNombreEmpresa);
-                    break;
-                case 7:
-                    System.out.print("Nuevo cargo: ");
-                    String nuevoCargo = scanner.nextLine();
-                    ((ContactoEmpresa) contacto).setCargo(nuevoCargo);
-                    break;
-                case 8:
-                    System.out.print("Nuevo país de residencia: ");
-                    String nuevoPais = scanner.nextLine();
-                    ((ContactoEmpresa) contacto).setPaisResidencia(nuevoPais);
-                    break;
-                case 9:
-                    System.out.print("¿Agregar o eliminar red social? [1] Agregar [2] Eliminar: ");
-                    int redSocialOpcion = Inputs.pedirInputNumerico();
-                    if (redSocialOpcion == 1) {
-                        System.out.print("Usuario de Red social a agregar: ");
-                        String user = scanner.nextLine();
-                        System.out.println("Red Social");
-                        String redSocial = scanner.nextLine();
-                        RedSocial redSocialNueva = new RedSocial(redSocial, user);
-                        contacto.agregarRedSocial(redSocialNueva);
-                    } else if (redSocialOpcion == 2) {
-                        System.out.print("Red social a eliminar: ");
-                        String user = scanner.nextLine();
-                        System.out.println("Red Social");
-                        String redSocial = scanner.nextLine();
-                        RedSocial redSocialEliminar = new RedSocial(redSocial, user);
-                        contacto.getRedesSociales().eliminar(redSocialEliminar);
-                    }
-                    break;
-                case 10:
-                    System.out.print("¿Agregar o eliminar foto? [1] Agregar [2] Eliminar: ");
-                    int fotoOpcion = Inputs.pedirInputNumerico();
-                    if (fotoOpcion == 1) {
-                        System.out.print("Ruta de la foto a agregar: ");
-                        String rutaFoto = scanner.nextLine();
-                        Foto foto = new Foto(rutaFoto);
-                        contacto.agregarFoto(foto);
-                    } else if (fotoOpcion == 2) {
-                        System.out.print("Ruta de la foto a eliminar: ");
-                        String rutaFoto = scanner.nextLine();
-                        Foto foto = new Foto(rutaFoto);
-                        contacto.getFotos().eliminar(foto);
-                    }
-                    break;
-                case 11:
-                    System.out.println("Cancelando edición.");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
+            editarContactoEmpresa((ContactoEmpresa) contacto, scanner);
         } else {
             System.out.println("Tipo de contacto no reconocido.");
         }
 
         System.out.println("Contacto actualizado: ");
         System.out.println(contacto);
+    }
+
+    private static void editarContactoPersona(ContactoPersona contacto, Scanner scanner) {
+        mostrarOpcionesEdicionPersona();
+        int opcion = Inputs.pedirInputNumerico();
+        switch (opcion) {
+            case 1: contacto.setNombre(pedirNuevoValor(scanner, "Nuevo nombre: ")); break;
+            case 2: contacto.setApellido(pedirNuevoValor(scanner, "Nuevo apellido: ")); break;
+            case 3: editarDireccion(contacto, scanner); break;
+            case 4: editarTelefono(contacto, scanner); break;
+            case 5: editarEmail(contacto, scanner); break;
+            case 6: contacto.setFechaNacimiento(pedirNuevoValor(scanner, "Nueva fecha de nacimiento (formato: dd/mm/yyyy): ")); break;
+            case 7: editarRedSocial(contacto, scanner); break;
+            case 8: editarFoto(contacto, scanner); break;
+            case 9: contacto.setTipoRelacion(pedirNuevoValor(scanner, "Nuevo tipo de relación: ")); break;
+            case 10: System.out.println("Cancelando edición."); break;
+            default: System.out.println("Opción no válida.");
+        }
+    }
+
+    private static void editarContactoEmpresa(ContactoEmpresa contacto, Scanner scanner) {
+        mostrarOpcionesEdicionEmpresa();
+        int opcion = Inputs.pedirInputNumerico();
+        switch (opcion) {
+            case 1: contacto.setNombre(pedirNuevoValor(scanner, "Nuevo nombre: ")); break;
+            case 2: contacto.setApellido(pedirNuevoValor(scanner, "Nuevo apellido: ")); break;
+            case 3: editarDireccion(contacto, scanner); break;
+            case 4: editarTelefono(contacto, scanner); break;
+            case 5: editarEmail(contacto, scanner); break;
+            case 6: contacto.setNombreEmpresa(pedirNuevoValor(scanner, "Nuevo nombre de empresa: ")); break;
+            case 7: contacto.setCargo(pedirNuevoValor(scanner, "Nuevo cargo: ")); break;
+            case 8: contacto.setPaisResidencia(pedirNuevoValor(scanner, "Nuevo país de residencia: ")); break;
+            case 9: editarRedSocial(contacto, scanner); break;
+            case 10: editarFoto(contacto, scanner); break;
+            case 11: System.out.println("Cancelando edición."); break;
+            default: System.out.println("Opción no válida.");
+        }
+    }
+
+    private static void editarDireccion(Contacto contacto, Scanner scanner) {
+        System.out.print("Nueva dirección: ");
+        String nuevaDireccion = scanner.nextLine();
+        System.out.println("Ingresa el link de la nueva dirección");
+        String linkNuevaDireccion = scanner.nextLine();
+        Direccion nuevaDireccionFinal = new Direccion(nuevaDireccion, linkNuevaDireccion);
+        contacto.setDireccion(nuevaDireccionFinal);
+    }
+
+    private static void editarTelefono(Contacto contacto, Scanner scanner) {
+        System.out.print("¿Agregar o eliminar teléfono? [1] Agregar [2] Eliminar: ");
+        int telefonoOpcion = Inputs.pedirInputNumerico();
+        if (telefonoOpcion == 1) {
+            System.out.print("Número de teléfono a agregar: ");
+            String telefono = scanner.nextLine();
+            contacto.agregarTelefono(telefono);
+        } else if (telefonoOpcion == 2) {
+            System.out.print("Número de teléfono a eliminar: ");
+            String telefono = scanner.nextLine();
+            contacto.getTelefonos().eliminar(telefono);
+        }
+    }
+
+    private static void editarEmail(Contacto contacto, Scanner scanner) {
+        System.out.print("¿Agregar o eliminar email? [1] Agregar [2] Eliminar: ");
+        int emailOpcion = Inputs.pedirInputNumerico();
+        if (emailOpcion == 1) {
+            System.out.print("Email a agregar (formato: direccion tipo): ");
+            String[] emailInput = scanner.nextLine().split(" ");
+            if (emailInput.length == 2) {
+                String direccionEmail = emailInput[0];
+                String tipoEmail = emailInput[1];
+                contacto.agregarEmail(new Email(direccionEmail, tipoEmail));
+            } else {
+                System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
+            }
+        } else if (emailOpcion == 2) {
+            System.out.print("Email a eliminar (formato: direccion tipo): ");
+            String[] emailInput = scanner.nextLine().split(" ");
+            if (emailInput.length == 2) {
+                String direccionEmail = emailInput[0];
+                String tipoEmail = emailInput[1];
+                contacto.getEmails().eliminar(new Email(direccionEmail, tipoEmail));
+            } else {
+                System.out.println("Formato incorrecto. Asegúrate de ingresar ambos valores.");
+            }
+        }
+    }
+
+    private static void editarRedSocial(Contacto contacto, Scanner scanner) {
+        System.out.print("¿Agregar o eliminar red social? [1] Agregar [2] Eliminar: ");
+        int redSocialOpcion = Inputs.pedirInputNumerico();
+        if (redSocialOpcion == 1) {
+            System.out.print("Usuario de Red social a agregar: ");
+            String user = scanner.nextLine();
+            System.out.println("Red Social");
+            String redSocial = scanner.nextLine();
+            RedSocial redSocialNueva = new RedSocial(redSocial, user);
+            contacto.agregarRedSocial(redSocialNueva);
+        } else if (redSocialOpcion == 2) {
+            System.out.print("Red social a eliminar: ");
+            String user = scanner.nextLine();
+            System.out.println("Red Social");
+            String redSocial = scanner.nextLine();
+            RedSocial redSocialEliminar = new RedSocial(redSocial, user);
+            contacto.getRedesSociales().eliminar(redSocialEliminar);
+        }
+    }
+
+    private static void editarFoto(Contacto contacto, Scanner scanner) {
+        System.out.print("¿Agregar o eliminar foto? [1] Agregar [2] Eliminar: ");
+        int fotoOpcion = Inputs.pedirInputNumerico();
+        if (fotoOpcion == 1) {
+            System.out.print("Ruta de la foto a agregar: ");
+            String rutaFoto = scanner.nextLine();
+            Foto foto = new Foto(rutaFoto);
+            contacto.agregarFoto(foto);
+        } else if (fotoOpcion == 2) {
+            System.out.print("Ruta de la foto a eliminar: ");
+            String rutaFoto = scanner.nextLine();
+            Foto foto = new Foto(rutaFoto);
+            contacto.getFotos().eliminar(foto);
+        }
+    }
+
+    private static String pedirNuevoValor(Scanner scanner, String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine();
+    }
+
+    private static void mostrarOpcionesEdicionPersona() {
+        System.out.println("¿Qué deseas editar?");
+        System.out.println("[1] Nombre");
+        System.out.println("[2] Apellido");
+        System.out.println("[3] Dirección");
+        System.out.println("[4] Teléfonos");
+        System.out.println("[5] Emails");
+        System.out.println("[6] Fecha de nacimiento");
+        System.out.println("[7] Redes sociales");
+        System.out.println("[8] Fotos");
+        System.out.println("[9] Tipo de relación");
+        System.out.println("[10] Cancelar");
+    }
+
+    private static void mostrarOpcionesEdicionEmpresa() {
+        System.out.println("¿Qué deseas editar?");
+        System.out.println("[1] Nombre");
+        System.out.println("[2] Apellido");
+        System.out.println("[3] Dirección");
+        System.out.println("[4] Teléfonos");
+        System.out.println("[5] Emails");
+        System.out.println("[6] Nombre de empresa");
+        System.out.println("[7] Cargo");
+        System.out.println("[8] País de residencia");
+        System.out.println("[9] Redes sociales");
+        System.out.println("[10] Fotos");
+        System.out.println("[11] Cancelar");
     }
 
     public static int mostrarOpcionesSinContactos(OurCircularDoubleList<Contacto> contactos) {
