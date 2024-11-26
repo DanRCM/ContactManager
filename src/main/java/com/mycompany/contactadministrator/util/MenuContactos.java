@@ -1,8 +1,5 @@
 package com.mycompany.contactadministrator.util;
 
-import java.util.*;
-
-
 import com.mycompany.contactadministrator.model.*;
 
 import java.util.Scanner;
@@ -339,98 +336,4 @@ public class MenuContactos {
             System.out.println("No se encontraron contactos que coincidan con la búsqueda.");
         }
     }
-
-
-    public static void filtrarContactos(OurCircularDoubleList<Contacto> contactos) {
-    if (contactos.estaVacia()) {
-        System.out.println("No hay contactos para filtrar.");
-        return;
-    }
-
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Seleccione el criterio de búsqueda:");
-    System.out.println("1. Término de búsqueda (nombre, apellido, o empresa)");
-    System.out.println("2. País de residencia");
-    System.out.println("3. Mes de cumpleaños");
-    int opcion = scanner.nextInt();
-    scanner.nextLine(); // Consumir el salto de línea
-
-    switch (opcion) {
-        case 1:
-            System.out.print("Ingrese el término de búsqueda: ");
-            String terminoBusqueda = scanner.nextLine().toLowerCase();
-            filtrarPorTermino(contactos, terminoBusqueda);
-            break;
-
-        case 2:
-            System.out.print("Ingrese el país de residencia: ");
-            String pais = scanner.nextLine().toLowerCase();
-            filtrarPorPais(contactos, pais);
-            break;
-
-        case 3:
-            System.out.print("Ingrese el número del mes (1-12): ");
-            int mes = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
-            filtrarPorMes(contactos, mes);
-            break;
-
-        default:
-            System.out.println("Opción no válida.");
-    }
-}
-
-   
-    public static void filtrarPorTermino(OurCircularDoubleList<Contacto> contactos, String termino) {
-        System.out.println("Contactos que coinciden con '" + termino + "':");
-        Iterator<Contacto> iterator = contactos.iterator();
-        while (iterator.hasNext()) {
-            Contacto contacto = iterator.next();
-            if (contacto.getNombre().toLowerCase().contains(termino) ||
-                contacto.getApellido().toLowerCase().contains(termino)) {
-                System.out.println(contacto);
-            }
-
-          
-            if (contacto instanceof ContactoEmpresa) {
-                ContactoEmpresa empresa = (ContactoEmpresa) contacto;
-                if (empresa.getNombreEmpresa() .toLowerCase().contains(termino)) {
-                    System.out.println(contacto);
-                }
-            }
-        }
-    }
-
-    
-    public static void filtrarPorPais(OurCircularDoubleList<Contacto> contactos, String pais) {
-        System.out.println("Contactos que viven en " + pais + ":");
-        Iterator<Contacto> iterator = contactos.iterator();
-        while (iterator.hasNext()) {
-            Contacto contacto = iterator.next();
-            if (contacto instanceof ContactoEmpresa) {
-                ContactoEmpresa empresa = (ContactoEmpresa) contacto;
-                if (empresa.getPaisResidencia().toLowerCase().contains(pais)) {
-                    System.out.println(contacto);
-                }
-            }
-        }
-    }
-    public static void filtrarPorMes(OurCircularDoubleList<Contacto> contactos, int mes) {
-        System.out.println("Contactos con cumpleaños en el mes " + mes + ":");
-        Iterator<Contacto> iterator = contactos.iterator();
-        while (iterator.hasNext()) {
-            Contacto contacto = iterator.next();
-            if (contacto instanceof ContactoPersona) {
-                ContactoPersona contactoPersona = (ContactoPersona) contacto;
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(contactoPersona.getFechaNacimiento());
-                int mesCumpleanos = calendar.get(Calendar.MONTH) + 1; 
-                if (mesCumpleanos == mes) {
-                    System.out.println(contacto);
-                }
-            }
-        }
-    }
-
-
 }

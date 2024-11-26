@@ -1,9 +1,12 @@
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 import com.mycompany.contactadministrator.util.OurArrayList;
 
-public class Contacto {
+public abstract class Contacto implements Serializable{
     private String nombre;
+    private static final long serialVersionUID = 5483261784L;
     private String apellido;
     private Direccion direccion;
     private OurArrayList<String> telefonos;
@@ -81,25 +84,34 @@ public class Contacto {
     }
 
     // Método para mostrar detalles del contacto
-    public void mostrarContacto() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Apellido: " + apellido);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Teléfonos: ");
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(nombre).append("\n");
+        sb.append("Apellido: ").append(apellido).append("\n");
+        sb.append("Dirección: ").append(direccion).append("\n");
+
+        sb.append("Teléfonos: \n");
         for (String telefono : telefonos) {
-            System.out.println(" - " + telefono);
+            sb.append(" - ").append(telefono).append("\n");
         }
-        System.out.println("Emails: ");
+
+        sb.append("Emails: \n");
         for (Email email : emails) {
-            System.out.println(" - " + email);
+            sb.append(" - ").append(email).append("\n");
         }
-        System.out.println("Redes Sociales: ");
+
+        sb.append("Redes Sociales: \n");
         for (RedSocial redSocial : redesSociales) {
-            System.out.println(" - " + redSocial);
+            sb.append(" - ").append(redSocial).append("\n");
         }
-        System.out.println("Fotos: ");
+
+        sb.append("Fotos: \n");
         for (Foto foto : fotos) {
-            System.out.println(" - " + foto);
+            sb.append(" - ").append(foto).append("\n");
         }
+
+        return sb.toString();
     }
+    
 }

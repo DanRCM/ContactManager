@@ -6,6 +6,7 @@ package com.mycompany.contactadministrator.model;
  */
 
 public class ContactoEmpresa extends Contacto{
+    private static final long serialVersionUID = -1925388865L;
     private String nombreEmpresa;
     private String cargo;
     private String paisResidencia;
@@ -43,9 +44,11 @@ public class ContactoEmpresa extends Contacto{
     }
     // Método para mostrar detalles del contacto de empresa
     @Override
-    public void mostrarContacto() {
-        super.mostrarContacto();  // Llamamos al método de la clase padre
-        System.out.println("Nombre de la empresa: " + nombreEmpresa);
-        System.out.println("Cargo: " + cargo);
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString()); // Llama al método toString() de la clase padre
+        sb.append("Nombre de la empresa: ").append(nombreEmpresa).append("\n");
+        sb.append("Cargo: ").append(cargo).append("\n");
+        return sb.toString();
     }
 }

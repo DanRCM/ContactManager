@@ -1,18 +1,21 @@
 package com.mycompany.contactadministrator.model;
 
+import java.util.Date;
+
 /**
  *
  * @author daniel24
  */
 
 public class ContactoPersona extends Contacto {
+    private static final long serialVersionUID = -5148453023L;
     private String tipoRelacion;
-    private String fechaCumpleaños;
+    private Date fechaNacimiento;
 
-    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion,String fechaCumpleaños) {
+    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion,Date fechaNacimiento) {
         super(nombre, apellido, direccion);
         this.tipoRelacion = tipoRelacion;
-        this.fechaCumpleaños = fechaCumpleaños;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getTipoRelacion() {
@@ -23,16 +26,18 @@ public class ContactoPersona extends Contacto {
         this.tipoRelacion = tipoRelacion;
     }
     
-    public String getFechaCumpleaños() {
-        return fechaCumpleaños;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
-    public void setFechaCumpleaños(String fechaCumpleaños) {
-        this.fechaCumpleaños = fechaCumpleaños;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     @Override
-    public void mostrarContacto() {
-        super.mostrarContacto();
-        System.out.println("Tipo de relación: " + tipoRelacion);
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("Tipo de relación: ").append(tipoRelacion).append("\n");
+        return sb.toString();
     }
 }

@@ -4,13 +4,15 @@
  */
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
 /**
  *
  * @author daniel24
  */
 import java.util.Date;
 
-public class Fecha {
+public class Fecha implements Serializable {
+    private static final long serialVersionUID = 1454851815L;
     private Date fecha;
     private String descripcion;  // Ejemplo: "Cumpleaños", "Aniversario", etc.
 

@@ -4,23 +4,26 @@
  */
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author daniel24
  */
-public class RedSocial {
-    private String redSocial;
+public class RedSocial implements Serializable {
+    private static final long serialVersionUID = 1643968930L;
+    private String redSocialNombre;
     private String identificador;  // Ejemplo: @usuario
 
     // Constructor
     public RedSocial(String redSocial, String identificador) {
-        this.redSocial = redSocial;
+        this.redSocialNombre = redSocial;
         this.identificador = identificador;
     }
 
     // Métodos getter
-    public String getRedSocial() {
-        return redSocial;
+    public String getRedSocialNombre() {
+        return redSocialNombre;
     }
 
     public String getIdentificador() {
@@ -29,6 +32,6 @@ public class RedSocial {
 
     @Override
     public String toString() {
-        return redSocial + ": " + identificador;
+        return redSocialNombre + ": " + identificador;
     }
 }

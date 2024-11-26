@@ -4,11 +4,14 @@
  */
 package com.mycompany.contactadministrator.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author daniel24
  */
-public class Foto {
+public class Foto implements Serializable {
+    private static final long serialVersionUID = -482848973L;
     private String url;
 
     // Constructor

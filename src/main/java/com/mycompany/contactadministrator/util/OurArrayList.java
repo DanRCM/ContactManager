@@ -1,9 +1,11 @@
 package com.mycompany.contactadministrator.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
-public class OurArrayList<E> implements Iterable<E> {
+public class OurArrayList<E> implements Iterable<E>, Serializable {
+    private static final long serialVersionUID = 377816483L;
     private E[] array;
     private int size = 0;
     private int capacidad;
@@ -51,7 +53,29 @@ public class OurArrayList<E> implements Iterable<E> {
         return array[index];
     }
 
-    // nuestra implementacion del método iterator
+    public boolean eliminar(E elemento) {
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(elemento)) {
+                System.arraycopy(array, i + 1, array, i, size - i - 1);
+                array[size - 1] = null;
+                size--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void printList() {
+        for (int i = 0; i < size; i++) {
+            int a = i;
+            a++;
+            System.out.println("Contacto " + a);
+            System.out.print(array[i]);
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {

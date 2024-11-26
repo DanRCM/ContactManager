@@ -4,13 +4,18 @@
  */
 package com.mycompany.contactadministrator.util;
 
-class NodoDobleCircular<E> {
-    E dato;                    
-    NodoDobleCircular<E> siguiente; 
-    NodoDobleCircular<E> anterior;  
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-    // Constructor 
-    public NodoDobleCircular(E dato) {
+class NodoDoble<E> implements Serializable {
+    private static final long serialVersionUID = 42061452L;
+    E dato;
+    NodoDoble<E> siguiente;
+    NodoDoble<E> anterior;
+
+    // Constructor
+    public NodoDoble(E dato) {
         this.dato = dato;
         this.siguiente = null;
         this.anterior = null;
@@ -21,9 +26,10 @@ class NodoDobleCircular<E> {
  *
  * @author EIMMY OCHOA
  */
-public class OurCircularDoubleList<E> {
-    private NodoDobleCircular<E> cabeza; 
-    private int tamaño;    
+public class OurCircularDoubleList<E> implements Serializable {
+    private static final long serialVersionUID = -695065484L;
+    private NodoDoble<E> cabeza;
+    private int tamaño;
 
     // Constructor para inicializar la lista como vacía
     public OurCircularDoubleList() {
@@ -32,36 +38,36 @@ public class OurCircularDoubleList<E> {
     }
 
     // Método para añadir un elemento al final de la lista
-    public void agregar(E dato) {
-        NodoDobleCircular<E> nuevoNodo = new NodoDobleCircular<>(dato);
-        if (cabeza == null) {          
+    public void agregarUltimo(E dato) {
+        NodoDoble<E> nuevoNodo = new NodoDoble<>(dato);
+        if (cabeza == null) {
             cabeza = nuevoNodo;
             cabeza.siguiente = cabeza;
             cabeza.anterior = cabeza;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior; 
-            cola.siguiente = nuevoNodo;   
-            nuevoNodo.anterior = cola;     
-            nuevoNodo.siguiente = cabeza;   
-            cabeza.anterior = nuevoNodo;     
+            NodoDoble<E> cola = cabeza.anterior;
+            cola.siguiente = nuevoNodo;
+            nuevoNodo.anterior = cola;
+            nuevoNodo.siguiente = cabeza;
+            cabeza.anterior = nuevoNodo;
         }
         tamaño++;
     }
 
     // Método para añadir un elemento al inicio de la lista
     public void agregarPrimero(E dato) {
-        NodoDobleCircular<E> nuevoNodo = new NodoDobleCircular<>(dato);
-        if (cabeza == null) {       
+        NodoDoble<E> nuevoNodo = new NodoDoble<>(dato);
+        if (cabeza == null) {
             cabeza = nuevoNodo;
             cabeza.siguiente = cabeza;
             cabeza.anterior = cabeza;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior; 
-            nuevoNodo.siguiente = cabeza;    
-            nuevoNodo.anterior = cola;      
-            cola.siguiente = nuevoNodo;    
-            cabeza.anterior = nuevoNodo;    
-            cabeza = nuevoNodo;      
+            NodoDoble<E> cola = cabeza.anterior;
+            nuevoNodo.siguiente = cabeza;
+            nuevoNodo.anterior = cola;
+            cola.siguiente = nuevoNodo;
+            cabeza.anterior = nuevoNodo;
+            cabeza = nuevoNodo;
         }
         tamaño++;
     }
@@ -69,7 +75,8 @@ public class OurCircularDoubleList<E> {
     // Método para obtener el primer elemento de la lista
     public E obtenerPrimero() {
         if (cabeza == null) {
-            throw new IllegalStateException("La lista está vacía");
+            String s = "La lista está vacía";
+            throw new IllegalStateException(s);
         }
         return cabeza.dato;
     }
@@ -79,7 +86,7 @@ public class OurCircularDoubleList<E> {
         if (cabeza == null) {
             throw new IllegalStateException("La lista está vacía");
         }
-        return cabeza.anterior.dato; 
+        return cabeza.anterior.dato;
     }
 
     // Método para eliminar el primer elemento de la lista
@@ -91,10 +98,10 @@ public class OurCircularDoubleList<E> {
         if (cabeza.siguiente == cabeza) {
             cabeza = null;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior;
-            cabeza = cabeza.siguiente;   
-            cabeza.anterior = cola;    
-            cola.siguiente = cabeza;  
+            NodoDoble<E> cola = cabeza.anterior;
+            cabeza = cabeza.siguiente;
+            cabeza.anterior = cola;
+            cola.siguiente = cabeza;
         }
         tamaño--;
         return datoEliminado;
@@ -106,12 +113,12 @@ public class OurCircularDoubleList<E> {
             throw new IllegalStateException("La lista está vacía");
         }
         E datoEliminado = cabeza.anterior.dato;
-        if (cabeza.siguiente == cabeza) { 
+        if (cabeza.siguiente == cabeza) {
             cabeza = null;
         } else {
-            NodoDobleCircular<E> cola = cabeza.anterior;
-            cola.anterior.siguiente = cabeza;  
-            cabeza.anterior = cola.anterior;  
+            NodoDoble<E> cola = cabeza.anterior;
+            cola.anterior.siguiente = cabeza;
+            cabeza.anterior = cola.anterior;
         }
         tamaño--;
         return datoEliminado;
@@ -119,16 +126,17 @@ public class OurCircularDoubleList<E> {
 
     // Método para verificar si un elemento está en la lista
     public boolean contiene(E dato) {
-        if (cabeza == null) return false;
+        if (cabeza == null)
+            return false;
 
-        NodoDobleCircular<E> actual = cabeza;
+        NodoDoble<E> actual = cabeza;
         do {
             if (actual.dato.equals(dato)) {
                 return true;
             }
             actual = actual.siguiente;
         } while (actual != cabeza);
-        return false; 
+        return false;
     }
 
     // Método para obtener el tamaño actual de la lista
@@ -147,26 +155,88 @@ public class OurCircularDoubleList<E> {
             System.out.println("La lista está vacía");
             return;
         }
-        NodoDobleCircular<E> actual = cabeza;
+        NodoDoble<E> actual = cabeza;
         do {
             System.out.print(actual.dato + " <-> ");
             actual = actual.siguiente;
         } while (actual != cabeza);
-        System.out.println("(cabeza)"); 
+
     }
 
-    // Método para imprimir la lista completa desde la cola hasta la cabeza (recorrido inverso)
+    // Método para imprimir la lista completa desde la cola hasta la cabeza
+    // (recorrido inverso)
     public void printListReverse() {
         if (cabeza == null) {
             System.out.println("La lista está vacía");
             return;
         }
-        NodoDobleCircular<E> actual = cabeza.anterior; // Comienza desde la cola
+        NodoDoble<E> actual = cabeza.anterior; // Comienza desde la cola
         do {
             System.out.print(actual.dato + " <-> ");
             actual = actual.anterior;
         } while (actual != cabeza.anterior);
         System.out.println("(cabeza en reversa)"); // Indicar el final de la lista y referencia inversa
     }
-    
+
+    public OurCircularDoubleListIterator iterator() {
+        return new OurCircularDoubleListIterator();
+    }
+
+    public class OurCircularDoubleListIterator implements Iterator<E> {
+        private NodoDoble<E> actual = cabeza;
+
+        @Override
+        public boolean hasNext() {
+            if (cabeza == null) {
+                return false;
+            }
+            return true;
+        }
+
+        // devuelve el dato del nodo actual y avanza la lista
+        @Override
+        public E next() {
+            if (!hasNext())
+                throw new NoSuchElementException("No hay elementos");
+            E dato = actual.dato;
+            actual = actual.siguiente;
+            return dato;
+        }
+
+        public E previous() {
+            if (actual == null)
+                throw new NoSuchElementException("No hay elementos");
+            actual = actual.anterior;
+            return actual.dato;
+        }
+
+        @Override
+        public void remove() {
+            if (actual == null || tamaño == 0) {
+                throw new NoSuchElementException("No hay elementos para eliminar");
+            }
+            NodoDoble<E> nodoSiguiente = actual.siguiente;
+            NodoDoble<E> nodoAnterior = actual.anterior;
+            nodoAnterior.siguiente = nodoSiguiente;
+            nodoSiguiente.anterior = nodoAnterior;
+            if (actual == cabeza) {
+                cabeza = nodoSiguiente;
+            }
+            actual = nodoSiguiente; // Mueve el actual al siguiente nodo
+            tamaño--;
+
+            if (tamaño == 0) {
+                cabeza = null;
+                actual = null;
+            }
+        }
+
+        public E peek() {
+            if (!hasNext()) {
+                System.out.println("No hay elementos para mostrar.");
+                return null;
+            }
+            return actual.dato;
+        }
+    }
 }
