@@ -20,12 +20,30 @@ public class DataLoader {
         Direccion direccionEmpresa = new Direccion("Avenida Empresa 456",
                 "https://maps.google.com/?q=Avenida+Empresa+456");
 
-        ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Carlos", "Gómez", direccionEmpresa, "TechCorp",
+        Direccion direccionPersona2 = new Direccion("Calle Ficticia 245",
+                "https://maps.google.com/?q=Calle");
+
+        ContactoPersona contactoPersona2 = new ContactoPersona("Carlos", "Péreira", direccionPersona2, "Amigo", "10/05/2003");
+        contactoPersona2.agregarTelefono("0993827433");
+        contactoPersona2.agregarEmail(new Email("carlos@ejemplo.com", "personal"));
+        contactoPersona2.agregarRedSocial(new RedSocial("Twitter", "@carlosPereira"));
+        contactoPersona2.agregarFoto(new Foto("foto2.jpg"));
+        contactoPersona.agregarContactoAsociado(contactoPersona);
+        contactoPersona.agregarContactoAsociado(contactoPersona2);
+
+
+        Direccion direccionEmpresa2 = new Direccion("Avenida Empresa 456",
+                "https://maps.google.com/?q=Avenida+Empresa+456");
+
+        ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Pepe", "Gómez", direccionEmpresa, "TechCorp",
                 "Gerente de TI", "Estados Unidos");
         contactoEmpresa.agregarTelefono("987654321");
-        contactoEmpresa.agregarEmail(new Email("carlos@techcorp.com", "corporativo"));
-        contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "carlos-gomez"));
-        contactoEmpresa.agregarFoto(new Foto("foto2.jpg"));
+        contactoEmpresa.agregarEmail(new Email("pepe@techcorp.com", "corporativo"));
+        contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "pepe-gomez"));
+        contactoEmpresa.agregarFoto(new Foto("foto3.jpg"));
+        contactoEmpresa.agregarContactoAsociado(contactoPersona);
+        contactoEmpresa.agregarContactoAsociado(contactoPersona2);
+
 
         // Añadir los contactos a la lista
         contactos.agregarUltimo(contactoPersona);

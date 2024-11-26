@@ -1,10 +1,9 @@
 package com.mycompany.contactadministrator.model;
 
 import java.io.Serializable;
-
 import com.mycompany.contactadministrator.util.OurArrayList;
 
-public class Contacto implements Serializable{
+public class Contacto implements Serializable {
     private String nombre;
     private static final long serialVersionUID = 5483261784L;
     private String apellido;
@@ -13,6 +12,7 @@ public class Contacto implements Serializable{
     private OurArrayList<Email> emails;
     private OurArrayList<RedSocial> redesSociales;
     private OurArrayList<Foto> fotos;
+    private OurArrayList<Contacto> contactosAsociados; // Nueva lista para contactos asociados
 
     // Constructor
     public Contacto(String nombre, String apellido, Direccion direccion) {
@@ -23,6 +23,67 @@ public class Contacto implements Serializable{
         this.emails = new OurArrayList<>(Email.class);
         this.redesSociales = new OurArrayList<>(RedSocial.class);
         this.fotos = new OurArrayList<>(Foto.class);
+        this.contactosAsociados = new OurArrayList<>(Contacto.class); // Inicializar la lista
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+    public OurArrayList<String> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(OurArrayList<String> telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    public OurArrayList<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(OurArrayList<Email> emails) {
+        this.emails = emails;
+    }
+
+    public OurArrayList<RedSocial> getRedesSociales() {
+        return redesSociales;
+    }
+
+    public void setRedesSociales(OurArrayList<RedSocial> redesSociales) {
+        this.redesSociales = redesSociales;
+    }
+
+    public OurArrayList<Foto> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(OurArrayList<Foto> fotos) {
+        this.fotos = fotos;
+    }
+
+    public void setContactosAsociados(OurArrayList<Contacto> contactosAsociados) {
+        this.contactosAsociados = contactosAsociados;
     }
 
     // Métodos para agregar información
@@ -42,45 +103,12 @@ public class Contacto implements Serializable{
         fotos.agregar(foto);
     }
 
-    // Métodos getter y setter
-    public String getNombre() {
-        return nombre;
+    public void agregarContactoAsociado(Contacto contacto) {
+        contactosAsociados.agregar(contacto);
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public OurArrayList<String> getTelefonos() {
-        return telefonos;
-    }
-
-    public OurArrayList<Email> getEmails() {
-        return emails;
-    }
-
-    public OurArrayList<RedSocial> getRedesSociales() {
-        return redesSociales;
-    }
-
-    public OurArrayList<Foto> getFotos() {
-        return fotos;
+    public OurArrayList<Contacto> getContactosAsociados() {
+        return contactosAsociados;
     }
 
     // Método para mostrar detalles del contacto
@@ -111,7 +139,15 @@ public class Contacto implements Serializable{
             sb.append(" - ").append(foto).append("\n");
         }
 
+        sb.append("Contactos Asociados: \n");
+        if (contactosAsociados.estaVacia() || contactosAsociados == null) { // Comprobar si la lista está vacía
+            sb.append(" - Sin contactos asociados\n");
+        } else {
+            for (Contacto asociado : contactosAsociados) {
+                sb.append(" - ").append(asociado.getNombre()).append(" ").append(asociado.getApellido()).append("\n");
+            }
+        }
+
         return sb.toString();
     }
-    
 }
