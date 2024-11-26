@@ -1,5 +1,7 @@
 package com.mycompany.contactadministrator.model;
 
+import java.util.Date;
+
 /**
  *
  * @author daniel24
@@ -8,9 +10,9 @@ package com.mycompany.contactadministrator.model;
 public class ContactoPersona extends Contacto {
     private static final long serialVersionUID = -5148453023L;
     private String tipoRelacion;
-    private String fechaNacimiento;
+    private Date fechaNacimiento;
 
-    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion,String fechaNacimiento) {
+    public ContactoPersona(String nombre, String apellido, Direccion direccion, String tipoRelacion,Date fechaNacimiento) {
         super(nombre, apellido, direccion);
         this.tipoRelacion = tipoRelacion;
         this.fechaNacimiento = fechaNacimiento;
@@ -24,10 +26,10 @@ public class ContactoPersona extends Contacto {
         this.tipoRelacion = tipoRelacion;
     }
     
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
