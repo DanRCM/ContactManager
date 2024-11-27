@@ -124,7 +124,7 @@ public class MenuContactos {
             case 3: editarDireccion(contacto, scanner); break;
             case 4: editarTelefono(contacto, scanner); break;
             case 5: editarEmail(contacto, scanner); break;
-            case 6: contacto.setFechaNacimiento(pedirNuevoValor(scanner, "Nueva fecha de nacimiento (formato: dd/mm/yyyy): ")); break;
+            case 6: contacto.setFechaNacimiento(pedirNuevoValor(scanner, "Nueva fecha de nacimiento (formato: YYYY-MM-DD): ")); break;
             case 7: editarRedSocial(contacto, scanner); break;
             case 8: editarFoto(contacto, scanner); break;
             case 9: contacto.setTipoRelacion(pedirNuevoValor(scanner, "Nuevo tipo de relación: ")); break;

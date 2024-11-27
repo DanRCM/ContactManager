@@ -11,7 +11,7 @@ public class DataLoader {
         Direccion direccionPersona = new Direccion("Calle Ficticia 123",
                 "https://maps.google.com/?q=Calle+Ficticia+123");
 
-        ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo", "30/08/2005");
+        ContactoPersona contactoPersona = new ContactoPersona("Juan", "Pérez", direccionPersona, "Amigo", "2005-08-30");
         contactoPersona.agregarTelefono("123456789");
         contactoPersona.agregarEmail(new Email("juan@ejemplo.com", "personal"));
         contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));

@@ -24,7 +24,7 @@ public class ContactFactory {
         Direccion direccionFinal = new Direccion(direccion, direccionLink);
         System.out.println("Ingresa la relación con la persona: ");
         String relacion = input.nextLine();
-        System.out.println("Ingresa su fecha de nacimiento: ");
+        System.out.println("Ingresa su fecha de nacimiento, en formato YYYY-MM-AA ");
         String fechaNacimiento = input.nextLine();
 
         ContactoPersona contacto = new ContactoPersona(nombre, apellido, direccionFinal, relacion, fechaNacimiento);
