@@ -25,7 +25,7 @@ public class MenuOrdenar {
         if (opcion == 1) {
                 System.out.println("Ordenando por nombre: ");
             Collections.sort(ourCircularDoubleList, Comparadores.POR_NOMBRE);
-        }// supongamos que arreglamos este error
+            }// supongamos que arreglamos este error
             else if (opcion == 2) {
                 System.out.println("Ordenando por empresa: ");
                 Collections.sort(ourCircularDoubleList,Comparadores.POR_EMPRESA);
