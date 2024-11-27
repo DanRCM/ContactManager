@@ -2,6 +2,7 @@ package com.mycompany.contactadministrator.util;
 
 import com.mycompany.contactadministrator.model.*;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuContactos {
@@ -65,7 +66,7 @@ public class MenuContactos {
                 }
                 break;
             case 2: // Contacto anterior
-                    iterator.previous();
+                iterator.previous();
                 break;
             case 3:
                 editarContacto(iterator.peek());
@@ -124,7 +125,16 @@ public class MenuContactos {
             case 3: editarDireccion(contacto, scanner); break;
             case 4: editarTelefono(contacto, scanner); break;
             case 5: editarEmail(contacto, scanner); break;
-            case 6: contacto.setFechaNacimiento(pedirNuevoValor(scanner, "Nueva fecha de nacimiento (formato: dd/mm/yyyy): ")); break;
+            case 6:
+                System.out.println("Nueva fecha de nacimiento (formato: dd/MM/yyyy): ");
+                String nuevaFechaStr = scanner.nextLine();
+                LocalDate nuevaFecha = ContactoPersona.convertirStringADate(nuevaFechaStr);
+                if (nuevaFecha != null) {
+                    contacto.setFechaNacimiento(nuevaFecha);
+                } else {
+                    System.out.println("Fecha de nacimiento no válida. No se ha actualizado.");
+                }
+                break;
             case 7: editarRedSocial(contacto, scanner); break;
             case 8: editarFoto(contacto, scanner); break;
             case 9: contacto.setTipoRelacion(pedirNuevoValor(scanner, "Nuevo tipo de relación: ")); break;
