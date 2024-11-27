@@ -60,9 +60,8 @@ public class MenuContacto {
         }
 
         contactos.agregarUltimo(nuevoContacto);
-        System.out.println("Contacto añadido: " + nuevoContacto);
+        System.out.println("Contacto añadido: " + nuevoContacto.getNombre());
         System.out.println();
-        contactos.printList();
     }
 
     private static void buscarYAgregarContactoAsociado(OurCircularDoubleList<Contacto> contactos, Contacto nuevoContacto) {
