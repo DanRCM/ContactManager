@@ -26,7 +26,7 @@ public class MenuPrincipal {
                     MenuContactos.buscarContactos(contactos);
                     break;
                 case 3:
-                    System.out.println("Ordenar contactos coming soon");
+                    MenuOrdenar.ejecutarMenuOrdenar(contactos);
                     break;
                 case 4:
                     System.out.println("Cerrando el programa...");

@@ -31,7 +31,7 @@ public class MenuContacto {
         do {
             System.out.print("¿Desea añadir un contacto asociado? [1] Sí [2] No: ");
             if (scanner.hasNextInt()) {
-                opcionAsociados = scanner.nextInt();
+                opcionAsociados = Inputs.pedirInputNumerico();
                 scanner.nextLine(); // Limpiar el buffer
                 if (opcionAsociados != 1 && opcionAsociados != 2) {
                     System.out.println("Ingrese una de las dos opciones numéricas.");
