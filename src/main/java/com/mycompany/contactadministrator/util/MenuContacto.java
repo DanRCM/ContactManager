@@ -26,38 +26,46 @@ public class MenuContacto {
 
         // Preguntar si desea añadir contactos asociados
         Scanner scanner = new Scanner(System.in);
-        int opcionAsociados = 0; // Inicializar variable
+        int opcionAsociados;
 
         do {
             System.out.print("¿Desea añadir un contacto asociado? [1] Sí [2] No: ");
-            if (scanner.hasNextInt()) {
-                opcionAsociados = Inputs.pedirInputNumerico();
-                scanner.nextLine(); // Limpiar el buffer
+            String input = scanner.nextLine(); // Leer toda la línea
+            try {
+                opcionAsociados = Integer.parseInt(input); // Convertir a entero
                 if (opcionAsociados != 1 && opcionAsociados != 2) {
-                    System.out.println("Ingrese una de las dos opciones numéricas.");
+                    System.out.println("Ingrese una de las dos opciones numéricas (1 o 2).");
+                    opcionAsociados = 0;
                 }
-            } else {
-                System.out.println("Ingrese una de las dos opciones numéricas.");
-                scanner.next(); // Limpiar el buffer de entrada
+            } catch (NumberFormatException e) {
+                System.out.println("No se admiten caracteres que no sean 1 o 2. Intente de nuevo.");
+                opcionAsociados = 0;
+
             }
         } while (opcionAsociados != 1 && opcionAsociados != 2);
 
         while (opcionAsociados == 1) {
-            contactos.printList();
             buscarYAgregarContactoAsociado(contactos, nuevoContacto);
+            // Preguntar si desea añadir otro contacto asociado
             do {
                 System.out.print("¿Desea añadir otro contacto asociado? [1] Sí [2] No: ");
-                if (scanner.hasNextInt()) {
-                    opcionAsociados = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+                String input = scanner.nextLine(); // Leer toda la línea
+                try {
+                    opcionAsociados = Integer.parseInt(input); // Convertir a entero
                     if (opcionAsociados != 1 && opcionAsociados != 2) {
-                        System.out.println("Ingrese una de las dos opciones numéricas.");
+                        System.out.println("Ingrese una de las dos opciones numéricas (1 o 2).");
+                        opcionAsociados = 0;
                     }
-                } else {
-                    System.out.println("Ingrese una de las dos opciones numéricas.");
-                    scanner.next(); // Limpiar el buffer de entrada
+                } catch (NumberFormatException e) {
+                    System.out.println("No se admiten caracteres que no sean 1 o 2. Intente de nuevo.");
+                    opcionAsociados = 0;
                 }
             } while (opcionAsociados != 1 && opcionAsociados != 2);
+
+            // Si la opción es 2, salimos del bucle
+            if (opcionAsociados == 2) {
+                break;
+            }
         }
 
         contactos.agregarUltimo(nuevoContacto);
@@ -69,6 +77,12 @@ public class MenuContacto {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el nombre o apellido del contacto a asociar: ");
         String terminoBusqueda = scanner.nextLine().toLowerCase();
+
+        // Verificar que el término de búsqueda no esté vacío
+        if (terminoBusqueda.trim().isEmpty()) {
+            System.out.println("El término de búsqueda no puede estar vacío.");
+            return;
+        }
 
         boolean encontrado = false;
         OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
@@ -87,10 +101,11 @@ public class MenuContacto {
             String nombre = primerContacto.getNombre().toLowerCase();
             String apellido = primerContacto.getApellido().toLowerCase();
 
-            if (nombre.contains(terminoBusqueda) || apellido.contains(terminoBusqueda)) {
+            if (nombre.equals(terminoBusqueda) || apellido.equals(terminoBusqueda)) {
                 System.out.println("Contacto encontrado: " + primerContacto);
                 nuevoContacto.agregarContactoAsociado(primerContacto);
                 encontrado = true;
+                System.out.println("Contacto asociado añadido exitosamente.");
                 break; // Salir después de agregar el contacto asociado
             }
 
