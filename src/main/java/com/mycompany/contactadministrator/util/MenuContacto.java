@@ -43,6 +43,7 @@ public class MenuContacto {
         } while (opcionAsociados != 1 && opcionAsociados != 2);
 
         while (opcionAsociados == 1) {
+            contactos.printList();
             buscarYAgregarContactoAsociado(contactos, nuevoContacto);
             do {
                 System.out.print("¿Desea añadir otro contacto asociado? [1] Sí [2] No: ");

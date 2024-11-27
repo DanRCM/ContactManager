@@ -8,7 +8,7 @@ public class MenuPrincipal {
         System.out.println("Bienvenido a ContactManager! ");
         System.out.println("[1] Ver contactos");
         System.out.println("[2] Buscar contactos");
-        System.out.println("[3] Ordenar contactos (no funcional)");
+        System.out.println("[3] Ordenar contactos segun criterios");
         System.out.println("[4] Cerrar ContactManager y guardar lista de contactos.");
         System.out.println("");
     }

@@ -4,7 +4,11 @@
  */
 package com.mycompany.contactadministrator.util;
 
+import com.mycompany.contactadministrator.model.Contacto;
+
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -124,6 +128,32 @@ public class OurCircularDoubleList<E> implements Serializable {
         return datoEliminado;
     }
 
+    public void ordenar(Comparator<? super E> comparador) {
+        if (estaVacia()) {
+            return; // No hay nada que ordenar
+        }
+
+        // Crear un array temporal
+        E[] arrayTemporal = (E[]) new Object[tamaño];
+        NodoDoble<E> actual = cabeza;
+        for (int i = 0; i < tamaño; i++) {
+            arrayTemporal[i] = actual.dato;
+            actual = actual.siguiente;
+        }
+
+        // Ordenar el array
+        Arrays.sort(arrayTemporal, comparador);
+
+        // Vaciar la lista actual
+        cabeza = null;
+        tamaño = 0;
+
+        // Volver a llenar la lista circular con los elementos ordenados
+        for (E elemento : arrayTemporal) {
+            agregarUltimo(elemento);
+        }
+    }
+
     // Método para verificar si un elemento está en la lista
     public boolean contiene(E dato) {
         if (cabeza == null)
@@ -157,7 +187,7 @@ public class OurCircularDoubleList<E> implements Serializable {
         }
         NodoDoble<E> actual = cabeza;
         do {
-            System.out.print(actual.dato + " <-> ");
+            System.out.print(actual.dato + "\n\n");
             actual = actual.siguiente;
         } while (actual != cabeza);
 
@@ -172,7 +202,7 @@ public class OurCircularDoubleList<E> implements Serializable {
         }
         NodoDoble<E> actual = cabeza.anterior; // Comienza desde la cola
         do {
-            System.out.print(actual.dato + " <-> ");
+            System.out.print(actual.dato + "\n\n");
             actual = actual.anterior;
         } while (actual != cabeza.anterior);
         System.out.println("(cabeza en reversa)"); // Indicar el final de la lista y referencia inversa

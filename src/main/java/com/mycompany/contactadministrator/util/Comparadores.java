@@ -18,26 +18,23 @@ public class Comparadores {
 
     public static final Comparator<Contacto> POR_EMPRESA = new Comparator<Contacto>() {
         public int compare(Contacto c1, Contacto c2) {
-            if (c1 instanceof ContactoPersona) {
+            if (c1 instanceof ContactoEmpresa && c2 instanceof ContactoEmpresa) {
+                ContactoEmpresa ce1 = (ContactoEmpresa) c1;
+                ContactoEmpresa ce2 = (ContactoEmpresa) c2;
+                return ce1.getNombreEmpresa().compareToIgnoreCase(ce2.getNombreEmpresa());
+            } else if (c1 instanceof ContactoPersona) {
                 return 1;
-            }
-            if (c2 instanceof ContactoPersona) {
+            } else if (c2 instanceof ContactoPersona) {
                 return -1;
             }
-            ContactoEmpresa ce1 = (ContactoEmpresa) c1;
-            ContactoEmpresa ce2 = (ContactoEmpresa) c2;
-            return ce1.getNombreEmpresa().compareToIgnoreCase(ce2.getNombreEmpresa());
+            return 0;
         }
     };
 
     public static final Comparator<Contacto> POR_PAIS = new Comparator<Contacto>() {
         @Override
         public int compare(Contacto o1, Contacto o2) {
-            return  o1.getDireccion().getPais().compareToIgnoreCase(o2.getDireccion().getPais());
+            return o1.getDireccion().getPais().compareToIgnoreCase(o2.getDireccion().getPais());
         }
     };
-
-
-
-
 }
