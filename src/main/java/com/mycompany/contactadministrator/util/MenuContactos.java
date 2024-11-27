@@ -154,20 +154,21 @@ public class MenuContactos {
             case 5: editarEmail(contacto, scanner); break;
             case 6: contacto.setNombreEmpresa(pedirNuevoValor(scanner, "Nuevo nombre de empresa: ")); break;
             case 7: contacto.setCargo(pedirNuevoValor(scanner, "Nuevo cargo: ")); break;
-            case 8: contacto.setPaisResidencia(pedirNuevoValor(scanner, "Nuevo país de residencia: ")); break;
-            case 9: editarRedSocial(contacto, scanner); break;
-            case 10: editarFoto(contacto, scanner); break;
-            case 11: System.out.println("Cancelando edición."); break;
+            case 8: editarRedSocial(contacto, scanner); break;
+            case 9: editarFoto(contacto, scanner); break;
+            case 10: System.out.println("Cancelando edición."); break;
             default: System.out.println("Opción no válida.");
         }
     }
 
     private static void editarDireccion(Contacto contacto, Scanner scanner) {
+        System.out.println("Nuevo pais: ");
+        String nuevoPais = scanner.nextLine();
         System.out.print("Nueva dirección: ");
         String nuevaDireccion = scanner.nextLine();
         System.out.println("Ingresa el link de la nueva dirección");
         String linkNuevaDireccion = scanner.nextLine();
-        Direccion nuevaDireccionFinal = new Direccion(nuevaDireccion, linkNuevaDireccion);
+        Direccion nuevaDireccionFinal = new Direccion(nuevoPais, nuevaDireccion, linkNuevaDireccion);
         contacto.setDireccion(nuevaDireccionFinal);
     }
 
@@ -275,10 +276,9 @@ public class MenuContactos {
         System.out.println("[5] Emails");
         System.out.println("[6] Nombre de empresa");
         System.out.println("[7] Cargo");
-        System.out.println("[8] País de residencia");
-        System.out.println("[9] Redes sociales");
-        System.out.println("[10] Fotos");
-        System.out.println("[11] Cancelar");
+        System.out.println("[8] Redes sociales");
+        System.out.println("[9] Fotos");
+        System.out.println("[10] Cancelar");
     }
 
     public static int mostrarOpcionesSinContactos(OurCircularDoubleList<Contacto> contactos) {

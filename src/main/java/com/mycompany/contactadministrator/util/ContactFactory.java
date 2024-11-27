@@ -18,11 +18,13 @@ public class ContactFactory {
         String nombre = input.nextLine();
         System.out.println("Ingresa el apellido: ");
         String apellido = input.nextLine();
+        System.out.println("Ingresa el pais: ");
+        String pais = input.nextLine();
         System.out.println("Ingresa la dirección: ");
         String direccion = input.nextLine();
         System.out.println("Ingresa el link de la dirección: ");
         String direccionLink = input.nextLine();
-        Direccion direccionFinal = new Direccion(direccion, direccionLink);
+        Direccion direccionFinal = new Direccion(pais, direccion, direccionLink);
         System.out.println("Ingresa la relación con la persona: ");
         String relacion = input.nextLine();
         System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
@@ -44,17 +46,17 @@ public class ContactFactory {
         String nombre = input.nextLine();
         System.out.println("Ingresa el apellido: ");
         String apellido = input.nextLine();
+        System.out.println("Ingresa el pais : ");
+        String pais = input.nextLine();
         System.out.println("Ingresa la dirección: ");
         String direccion = input.nextLine();
         System.out.println("Ingresa el link de la dirección: ");
         String linkDireccion = input.nextLine();
-        Direccion direccionFinal = new Direccion(direccion, linkDireccion);
+        Direccion direccionFinal = new Direccion(pais, direccion, linkDireccion);
         System.out.println("Ingresa el nombre de la empresa: ");
         String nombreEmpresa = input.nextLine();
         System.out.println("Ingresa el cargo en la empresa: ");
         String cargo = input.nextLine();
-        System.out.println("Ingresa el país de la empresa: ");
-        String pais = input.nextLine();
 
         ContactoEmpresa contacto = new ContactoEmpresa(nombre, apellido, direccionFinal, nombreEmpresa, cargo, pais);
         agregarDetallesContacto(contacto);

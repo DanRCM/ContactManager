@@ -9,7 +9,7 @@ public class DataLoader {
         OurCircularDoubleList<Contacto> contactos = new OurCircularDoubleList<>();
 
         // Crear contactos predeterminados
-        Direccion direccionPersona = new Direccion("Calle Ficticia 123",
+        Direccion direccionPersona = new Direccion("Ecuador","Calle Ficticia 123",
                 "https://maps.google.com/?q=Calle+Ficticia+123");
 
         // Convertir la fecha de nacimiento de String a LocalDate
@@ -20,7 +20,7 @@ public class DataLoader {
         contactoPersona.agregarRedSocial(new RedSocial("Twitter", "@juanperez"));
         contactoPersona.agregarFoto(new Foto("foto1.jpg"));
 
-        Direccion direccionPersona2 = new Direccion("Calle Ficticia 245",
+        Direccion direccionPersona2 = new Direccion("Bolivia","Calle Ficticia 245",
                 "https://maps.google.com/?q=Calle");
 
         // Convertir la fecha de nacimiento de String a LocalDate
@@ -35,7 +35,7 @@ public class DataLoader {
         contactoPersona.agregarContactoAsociado(contactoPersona);
         contactoPersona.agregarContactoAsociado(contactoPersona2);
 
-        Direccion direccionEmpresa = new Direccion("Avenida Empresa 456",
+        Direccion direccionEmpresa = new Direccion("Chile","Avenida Empresa 456",
                 "https://maps.google.com/?q=Avenida+Empresa+456");
 
         ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Pepe", "Gómez", direccionEmpresa, "TechCorp",
