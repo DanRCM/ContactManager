@@ -2,6 +2,7 @@ package com.mycompany.contactadministrator.util;
 
 import com.mycompany.contactadministrator.model.*;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ContactFactory {
@@ -24,8 +25,14 @@ public class ContactFactory {
         Direccion direccionFinal = new Direccion(direccion, direccionLink);
         System.out.println("Ingresa la relación con la persona: ");
         String relacion = input.nextLine();
-        System.out.println("Ingresa su fecha de nacimiento: ");
-        String fechaNacimiento = input.nextLine();
+        System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
+        String fechaNacimientoStr = input.nextLine();
+        LocalDate fechaNacimiento = ContactoPersona.convertirStringADate(fechaNacimientoStr);
+
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento no válida. Contacto no creado.");
+            return null; // O manejar el error de otra manera
+        }
 
         ContactoPersona contacto = new ContactoPersona(nombre, apellido, direccionFinal, relacion, fechaNacimiento);
         agregarDetallesContacto(contacto);

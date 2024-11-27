@@ -37,7 +37,6 @@ public class ContactAdministratorApp{
 //    }
 
     public static void main(String[] args) {
-        //OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
         OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1");
 
         MenuPrincipal.ejecutarMenu(contactos);
