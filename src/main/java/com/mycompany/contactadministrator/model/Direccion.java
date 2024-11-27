@@ -13,11 +13,13 @@ import java.io.Serializable;
 public class Direccion implements Serializable {
     private static final long serialVersionUID = 300819007L;
     private String direccion;
+    private String pais;
     private String enlaceGoogleMaps;
 
     // Constructor
-    public Direccion(String direccion, String enlaceGoogleMaps) {
+    public Direccion(String pais, String direccion, String enlaceGoogleMaps) {
         this.direccion = direccion;
+        this.pais = pais;
         this.enlaceGoogleMaps = enlaceGoogleMaps;
     }
 
@@ -29,9 +31,13 @@ public class Direccion implements Serializable {
         return enlaceGoogleMaps;
     }
 
+    public String getPais() {
+        return pais;
+    }
+
     @Override
     public String toString() {
-        return direccion + (enlaceGoogleMaps != null ? " (" + enlaceGoogleMaps + ")" : "");
+        return (pais != null ? pais : " ") + direccion + (enlaceGoogleMaps != null ? " (" + enlaceGoogleMaps + ")" : "");
     }
 }
 

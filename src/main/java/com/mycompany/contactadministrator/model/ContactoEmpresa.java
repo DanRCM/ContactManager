@@ -42,13 +42,12 @@ public class ContactoEmpresa extends Contacto{
     public void setPaisResidencia(String paisResidencia) {
         this.paisResidencia = paisResidencia;
     }
-    // Método para mostrar detalles del contacto de empresa
+    // Method para mostrar detalles del contacto de empresa
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(super.toString()); // Llama al método toString() de la clase padre
-        sb.append("Nombre de la empresa: ").append(nombreEmpresa).append("\n");
-        sb.append("Cargo: ").append(cargo).append("\n");
-        return sb.toString();
+        String sb = super.toString() + // Llama al método toString() de la clase padre
+                "Nombre de la empresa: " + nombreEmpresa + "\n" +
+                "Cargo: " + cargo + "\n";
+        return sb;
     }
 }
