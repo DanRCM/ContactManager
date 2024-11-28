@@ -32,7 +32,6 @@ public class DataLoader {
         contactoPersona2.agregarFoto(new Foto("foto2.jpg"));
 
         // Asociar contactos
-        contactoPersona.agregarContactoAsociado(contactoPersona);
         contactoPersona.agregarContactoAsociado(contactoPersona2);
 
         Direccion direccionEmpresa = new Direccion("Chile","Avenida Empresa 456",

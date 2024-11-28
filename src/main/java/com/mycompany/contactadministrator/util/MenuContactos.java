@@ -5,6 +5,8 @@ import com.mycompany.contactadministrator.model.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import static com.mycompany.contactadministrator.util.MenuContacto.buscarYAgregarContactoAsociado;
+
 public class MenuContactos {
     private static final int OPCION_SALIR = 6;
 
@@ -69,7 +71,7 @@ public class MenuContactos {
                 iterator.previous();
                 break;
             case 3:
-                editarContacto(iterator.peek());
+                editarContacto(contactos,iterator.peek());
                 break;
             case 4:
                 eliminarContacto(iterator);
@@ -99,15 +101,15 @@ public class MenuContactos {
         }
     }
 
-    private static void editarContacto(Contacto contacto) {
+    private static void editarContacto(OurCircularDoubleList<Contacto> contactos,Contacto contacto) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Editando contacto: ");
         System.out.println(contacto);
 
         if (contacto instanceof ContactoPersona) {
-            editarContactoPersona((ContactoPersona) contacto, scanner);
+            editarContactoPersona(contactos,(ContactoPersona) contacto, scanner);
         } else if (contacto instanceof ContactoEmpresa) {
-            editarContactoEmpresa((ContactoEmpresa) contacto, scanner);
+            editarContactoEmpresa(contactos,(ContactoEmpresa) contacto, scanner);
         } else {
             System.out.println("Tipo de contacto no reconocido.");
         }
@@ -116,7 +118,7 @@ public class MenuContactos {
         System.out.println(contacto);
     }
 
-    private static void editarContactoPersona(ContactoPersona contacto, Scanner scanner) {
+    private static void editarContactoPersona(OurCircularDoubleList<Contacto> contactos,ContactoPersona contacto, Scanner scanner) {
         mostrarOpcionesEdicionPersona();
         int opcion = Inputs.pedirInputNumerico();
         switch (opcion) {
@@ -138,12 +140,13 @@ public class MenuContactos {
             case 7: editarRedSocial(contacto, scanner); break;
             case 8: editarFoto(contacto, scanner); break;
             case 9: contacto.setTipoRelacion(pedirNuevoValor(scanner, "Nuevo tipo de relación: ")); break;
-            case 10: System.out.println("Cancelando edición."); break;
+            case 10: editarContactosAsociados(contactos, contacto, scanner);break;
+            case 11: System.out.println("Cancelando edición."); break;
             default: System.out.println("Opción no válida.");
         }
     }
 
-    private static void editarContactoEmpresa(ContactoEmpresa contacto, Scanner scanner) {
+    private static void editarContactoEmpresa(OurCircularDoubleList<Contacto> contactos,ContactoEmpresa contacto, Scanner scanner) {
         mostrarOpcionesEdicionEmpresa();
         int opcion = Inputs.pedirInputNumerico();
         switch (opcion) {
@@ -156,7 +159,8 @@ public class MenuContactos {
             case 7: contacto.setCargo(pedirNuevoValor(scanner, "Nuevo cargo: ")); break;
             case 8: editarRedSocial(contacto, scanner); break;
             case 9: editarFoto(contacto, scanner); break;
-            case 10: System.out.println("Cancelando edición."); break;
+            case 10: editarContactosAsociados(contactos,contacto, scanner); break;
+            case 11: System.out.println("Cancelando edición."); break;
             default: System.out.println("Opción no válida.");
         }
     }
@@ -232,6 +236,59 @@ public class MenuContactos {
         }
     }
 
+    private static void editarContactosAsociados(OurCircularDoubleList<Contacto> contactos,Contacto contacto,
+                                                 Scanner scanner) {
+        OurCircularDoubleList<Contacto> contactosAsociados = contacto.getContactosAsociados();
+        OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactosAsociados.iterator();
+
+        if (contactosAsociados.estaVacia()) {
+            System.out.println("No hay contactos asociados.");
+        } else {
+            System.out.println("Editando contactos asociados:");
+            int opcion;
+            do {
+                if (iterator.hasNext()) {
+                    Contacto contactoActual = iterator.peek();
+                    System.out.println("Contacto actual: " + contactoActual.getNombre() + " " + contactoActual.getApellido());
+                }
+
+                System.out.println("[1] Siguiente");
+                System.out.println("[2] Anterior");
+                System.out.println("[3] Eliminar contacto actual");
+                System.out.println("[4] Añadir nuevo contacto asociado");
+                System.out.println("[5] Salir");
+                opcion = Inputs.pedirInputNumerico();
+
+                switch (opcion) {
+                    case 1: // Siguiente
+                        iterator.next();
+                        break;
+                    case 2: // Anterior
+                        iterator.previous();
+                        break;
+                    case 3: // Eliminar contacto actual
+                        iterator.remove();
+                        System.out.println("Contacto eliminado.");
+                        break;
+                    case 4: // Añadir nuevo contacto asociado
+                        System.out.println("Lista de contactos disponibles:");
+
+                        System.out.print("Ingrese el nombre o apellido del nuevo contacto asociado: ");
+                        String terminoBusqueda = scanner.nextLine();
+                        buscarYAgregarContactoAsociado(contactos, contacto, terminoBusqueda);
+                        break;
+                    case 5: // Salir
+                        System.out.println("Saliendo de edición de contactos asociados.");
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } while (opcion != 5);
+        }
+    }
+
+
+
     private static void editarFoto(Contacto contacto, Scanner scanner) {
         System.out.print("¿Agregar o eliminar foto? [1] Agregar [2] Eliminar: ");
         int fotoOpcion = Inputs.pedirInputNumerico();
@@ -264,7 +321,8 @@ public class MenuContactos {
         System.out.println("[7] Redes sociales");
         System.out.println("[8] Fotos");
         System.out.println("[9] Tipo de relación");
-        System.out.println("[10] Cancelar");
+        System.out.println("[10] Contactos Relacionados");
+        System.out.println("[11] Cancelar");
     }
 
     private static void mostrarOpcionesEdicionEmpresa() {
@@ -278,7 +336,8 @@ public class MenuContactos {
         System.out.println("[7] Cargo");
         System.out.println("[8] Redes sociales");
         System.out.println("[9] Fotos");
-        System.out.println("[10] Cancelar");
+        System.out.println("[10] Contactos Relacionados");
+        System.out.println("[11] Cancelar");
     }
 
     public static int mostrarOpcionesSinContactos(OurCircularDoubleList<Contacto> contactos) {

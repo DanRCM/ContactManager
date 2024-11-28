@@ -1,7 +1,10 @@
 package com.mycompany.contactadministrator.model;
 
 import java.io.Serializable;
+import java.util.Iterator;
+
 import com.mycompany.contactadministrator.util.OurArrayList;
+import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 
 public class Contacto implements Serializable {
     private String nombre;
@@ -12,7 +15,7 @@ public class Contacto implements Serializable {
     private OurArrayList<Email> emails;
     private OurArrayList<RedSocial> redesSociales;
     private OurArrayList<Foto> fotos;
-    private OurArrayList<Contacto> contactosAsociados; // Nueva lista para contactos asociados
+    private OurCircularDoubleList<Contacto> contactosAsociados; // Nueva lista para contactos asociados
 
     // Constructor
     public Contacto(String nombre, String apellido, Direccion direccion) {
@@ -23,7 +26,7 @@ public class Contacto implements Serializable {
         this.emails = new OurArrayList<>(Email.class);
         this.redesSociales = new OurArrayList<>(RedSocial.class);
         this.fotos = new OurArrayList<>(Foto.class);
-        this.contactosAsociados = new OurArrayList<>(Contacto.class); // Inicializar la lista
+        this.contactosAsociados = new OurCircularDoubleList<>(); // Inicializar la lista
     }
 
     public String getNombre() {
@@ -82,7 +85,11 @@ public class Contacto implements Serializable {
         this.fotos = fotos;
     }
 
-    public void setContactosAsociados(OurArrayList<Contacto> contactosAsociados) {
+    public OurCircularDoubleList<Contacto> getContactosAsociados() {
+        return contactosAsociados;
+    }
+
+    public void setContactosAsociados(OurCircularDoubleList<Contacto> contactosAsociados) {
         this.contactosAsociados = contactosAsociados;
     }
 
@@ -104,11 +111,7 @@ public class Contacto implements Serializable {
     }
 
     public void agregarContactoAsociado(Contacto contacto) {
-        contactosAsociados.agregar(contacto);
-    }
-
-    public OurArrayList<Contacto> getContactosAsociados() {
-        return contactosAsociados;
+        contactosAsociados.agregarUltimo(contacto); // Agregar al final de la lista circular
     }
 
     // Método para mostrar detalles del contacto
@@ -140,12 +143,12 @@ public class Contacto implements Serializable {
         }
 
         sb.append("Contactos Asociados: \n");
-        if (contactosAsociados.estaVacia() || contactosAsociados == null) { // Comprobar si la lista está vacía
-            sb.append(" - Sin contactos asociados\n");
-        } else {
-            for (Contacto asociado : contactosAsociados) {
-                sb.append(" - ").append(asociado.getNombre()).append(" ").append(asociado.getApellido()).append("\n");
-            }
+
+        OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactosAsociados.iterator();
+
+        if(iterator.hasNext()){
+            sb.append("-").append(iterator.peek().nombre).append(" ").append(iterator.peek().apellido).append("\n");
+            iterator.next();
         }
 
         return sb.toString();

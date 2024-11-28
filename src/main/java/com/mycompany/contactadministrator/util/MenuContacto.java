@@ -73,6 +73,38 @@ public class MenuContacto {
         System.out.println();
     }
 
+    protected static void buscarYAgregarContactoAsociado(OurCircularDoubleList<Contacto> contactos, Contacto contactoPrincipal, String terminoBusqueda) {
+        OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
+        boolean encontrado = false;
+
+        if (!iterator.hasNext()) {
+            System.out.println("No hay contactos disponibles para buscar.");
+            return;
+        }
+
+        Contacto primerContacto = iterator.next();
+        Contacto inicioContacto = primerContacto; // Guardar el inicio para evitar bucles infinitos.
+
+        do {
+            String nombre = primerContacto.getNombre().toLowerCase();
+            String apellido = primerContacto.getApellido().toLowerCase();
+
+            if (nombre.contains(terminoBusqueda.toLowerCase()) || apellido.contains(terminoBusqueda.toLowerCase())) {
+                System.out.println("Contacto encontrado: " + primerContacto.getNombre() + " " + primerContacto.getApellido());
+                contactoPrincipal.agregarContactoAsociado(primerContacto);
+                System.out.println("Contacto asociado añadido exitosamente.");
+                encontrado = true;
+                break;
+            }
+
+            primerContacto = iterator.next();
+        } while (primerContacto != inicioContacto);
+
+        if (!encontrado) {
+            System.out.println("No se encontraron contactos que coincidan con la búsqueda.");
+        }
+    }
+
     private static void buscarYAgregarContactoAsociado(OurCircularDoubleList<Contacto> contactos, Contacto nuevoContacto) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el nombre o apellido del contacto a asociar: ");
