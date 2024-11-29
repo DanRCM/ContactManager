@@ -5,11 +5,13 @@ import com.mycompany.contactadministrator.model.Contacto;
 public class MenuPrincipal {
 
     public static void mostrarOpcionesPrincipales() {
-        System.out.println("Bienvenido a ContactManager! ");
+        //quite el System.out.println("Bienvenido a ContactManager! "); para que no se repita cuando filtres, queda
+        //raro que te diga bienvenido otra vez al filtrar, ahora lo dice una vez en main
         System.out.println("[1] Ver contactos");
         System.out.println("[2] Buscar contactos");
         System.out.println("[3] Ordenar contactos segun criterios");
-        System.out.println("[4] Cerrar ContactManager y guardar lista de contactos.");
+        System.out.println("[4] Filtrar contactos segun criterios");
+        System.out.println("[5] Cerrar ContactManager y guardar lista de contactos.");
         System.out.println("");
     }
 
@@ -29,6 +31,8 @@ public class MenuPrincipal {
                     MenuOrdenar.ejecutarMenuOrdenar(contactos);
                     break;
                 case 4:
+                    MenuFiltro.filtrarContactos(contactos);
+                case 5:
                     System.out.println("Cerrando el programa...");
                     Serializador.serializarLista(contactos, "contactos.p1");
                     break;

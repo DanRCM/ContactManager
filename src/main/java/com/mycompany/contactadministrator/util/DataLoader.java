@@ -38,7 +38,7 @@ public class DataLoader {
                 "https://maps.google.com/?q=Avenida+Empresa+456");
 
         ContactoEmpresa contactoEmpresa = new ContactoEmpresa("Pepe", "Gómez", direccionEmpresa, "TechCorp",
-                "Gerente de TI", "Estados Unidos");
+                "Gerente de TI");
         contactoEmpresa.agregarTelefono("987654321");
         contactoEmpresa.agregarEmail(new Email("pepe@techcorp.com", "corporativo"));
         contactoEmpresa.agregarRedSocial(new RedSocial("LinkedIn", "pepe-gomez"));

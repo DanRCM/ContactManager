@@ -58,7 +58,7 @@ public class ContactFactory {
         System.out.println("Ingresa el cargo en la empresa: ");
         String cargo = input.nextLine();
 
-        ContactoEmpresa contacto = new ContactoEmpresa(nombre, apellido, direccionFinal, nombreEmpresa, cargo, pais);
+        ContactoEmpresa contacto = new ContactoEmpresa(nombre, apellido, direccionFinal, nombreEmpresa, cargo);
         agregarDetallesContacto(contacto);
         return contacto;
     }

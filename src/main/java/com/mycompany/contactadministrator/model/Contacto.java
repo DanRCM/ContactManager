@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.mycompany.contactadministrator.util.OurArrayList;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 
-public class Contacto implements Serializable {
+public class    Contacto implements Serializable {
     private String nombre;
     private static final long serialVersionUID = 5483261784L;
     private String apellido;
