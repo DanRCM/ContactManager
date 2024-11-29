@@ -4,8 +4,6 @@
  */
 package com.mycompany.contactadministrator.util;
 
-import com.mycompany.contactadministrator.model.Contacto;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -223,7 +221,6 @@ public class OurCircularDoubleList<E> implements Serializable {
             return true;
         }
 
-        // devuelve el dato del nodo actual y avanza la lista
         @Override
         public E next() {
             if (!hasNext())

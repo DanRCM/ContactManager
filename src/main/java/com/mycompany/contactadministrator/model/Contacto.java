@@ -1,7 +1,6 @@
 package com.mycompany.contactadministrator.model;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 import com.mycompany.contactadministrator.util.OurArrayList;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
@@ -149,6 +148,8 @@ public class Contacto implements Serializable {
         if(iterator.hasNext()){
             sb.append("-").append(iterator.peek().nombre).append(" ").append(iterator.peek().apellido).append("\n");
             iterator.next();
+        }else{
+            sb.append("Sin Contactos Asociados\n");
         }
 
         return sb.toString();

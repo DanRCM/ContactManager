@@ -1,6 +1,5 @@
 package com.mycompany.contactadministrator.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

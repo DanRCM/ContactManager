@@ -60,12 +60,7 @@ public class MenuContactos {
 
         switch (opcion) {
             case 1: // Siguiente contacto
-                if (iterator.hasNext()) {
-                    iterator.next();
-                } else {
-                    System.out.println("No hay más contactos.");
-                    return false;
-                }
+                iterator.next();
                 break;
             case 2: // Contacto anterior
                 iterator.previous();
@@ -127,22 +122,25 @@ public class MenuContactos {
             case 3: editarDireccion(contacto, scanner); break;
             case 4: editarTelefono(contacto, scanner); break;
             case 5: editarEmail(contacto, scanner); break;
-            case 6:
-                System.out.println("Nueva fecha de nacimiento (formato: dd/MM/yyyy): ");
-                String nuevaFechaStr = scanner.nextLine();
-                LocalDate nuevaFecha = ContactoPersona.convertirStringADate(nuevaFechaStr);
-                if (nuevaFecha != null) {
-                    contacto.setFechaNacimiento(nuevaFecha);
-                } else {
-                    System.out.println("Fecha de nacimiento no válida. No se ha actualizado.");
-                }
-                break;
+            case 6: editarFechaNacimiento(contacto, scanner);break;
             case 7: editarRedSocial(contacto, scanner); break;
             case 8: editarFoto(contacto, scanner); break;
             case 9: contacto.setTipoRelacion(pedirNuevoValor(scanner, "Nuevo tipo de relación: ")); break;
             case 10: editarContactosAsociados(contactos, contacto, scanner);break;
             case 11: System.out.println("Cancelando edición."); break;
             default: System.out.println("Opción no válida.");
+        }
+    }
+
+    private static void editarFechaNacimiento(ContactoPersona contacto, Scanner scanner){
+        System.out.println("Nueva fecha de nacimiento (formato: dd/MM/yyyy): ");
+        String nuevaFechaStr = scanner.nextLine();
+        LocalDate nuevaFecha = ContactoPersona.convertirStringADate(nuevaFechaStr);
+        if (nuevaFecha != null) {
+            contacto.setFechaNacimiento(nuevaFecha);
+        } else {
+            System.out.println("Fecha de nacimiento no válida. No se ha actualizado.");
+            editarFechaNacimiento(contacto,scanner);
         }
     }
 
@@ -243,13 +241,15 @@ public class MenuContactos {
 
         if (contactosAsociados.estaVacia()) {
             System.out.println("No hay contactos asociados.");
+            mostrarOpcionesSinContactosAsociados(contactos, contacto, scanner);
         } else {
             System.out.println("Editando contactos asociados:");
             int opcion;
             do {
                 if (iterator.hasNext()) {
                     Contacto contactoActual = iterator.peek();
-                    System.out.println("Contacto actual: " + contactoActual.getNombre() + " " + contactoActual.getApellido());
+                    System.out.println("Contacto actual: ");
+                    System.out.println(contactoActual+"\n");
                 }
 
                 System.out.println("[1] Siguiente");
@@ -283,7 +283,11 @@ public class MenuContactos {
                     default:
                         System.out.println("Opción no válida.");
                 }
-            } while (opcion != 5);
+            } while (opcion != 5 && !contactosAsociados.estaVacia());
+
+            if(contactosAsociados.estaVacia()){
+                mostrarOpcionesSinContactosAsociados(contactos, contacto, scanner);
+            }
         }
     }
 
@@ -347,6 +351,20 @@ public class MenuContactos {
         int opcion = Inputs.pedirInputNumerico();
         if (opcion == 1) {
             MenuContacto.añadirContacto(contactos);
+        }
+        return opcion;
+    }
+
+    public static int mostrarOpcionesSinContactosAsociados(OurCircularDoubleList<Contacto> contactos,Contacto contacto,
+                                                           Scanner scanner) {
+        System.out.println("No hay contactos asociados para este contacto");
+        System.out.println("Opciones: ");
+        System.out.println("[1] Añadir Contacto");
+        System.out.println("[2] Regresar al menú contacto");
+        int opcion = Inputs.pedirInputNumerico();
+        if (opcion == 1) {
+            String terminoBusqueda = scanner.nextLine();
+            MenuContacto.buscarYAgregarContactoAsociado(contactos, contacto, terminoBusqueda);
         }
         return opcion;
     }
