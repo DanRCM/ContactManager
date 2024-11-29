@@ -5,8 +5,8 @@ import com.mycompany.contactadministrator.model.Contacto;
 public class MenuPrincipal {
 
     public static void mostrarOpcionesPrincipales() {
-        //quite el System.out.println("Bienvenido a ContactManager! "); para que no se repita cuando filtres, queda
-        //raro que te diga bienvenido otra vez al filtrar, ahora lo dice una vez en main
+        System.out.println("Bienvenido a ContactManager! ");
+
         System.out.println("[1] Ver contactos");
         System.out.println("[2] Buscar contactos");
         System.out.println("[3] Ordenar contactos segun criterios");

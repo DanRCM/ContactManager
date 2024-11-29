@@ -38,7 +38,7 @@ public class ContactAdministratorApp{
 
     public static void main(String[] args) {
         OurCircularDoubleList<Contacto> contactos = DataLoader.cargarDatos();
-        System.out.println("Bienvenido a ContactManager! ");
+
         MenuPrincipal.ejecutarMenu(contactos);
         //launch();
     }

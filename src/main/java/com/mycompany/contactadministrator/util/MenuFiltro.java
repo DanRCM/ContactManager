@@ -57,7 +57,7 @@ public class MenuFiltro {
         else {
             System.out.println("==============================================");
             System.out.println("Mostrando lista filtrada:");
-            MenuPrincipal.ejecutarMenu(listaFiltrada);
+            MenuContactos.mostrarMenuContactos(listaFiltrada);
             System.out.println("Saliendo de la lista filtrada.");
             System.out.println("==============================================");
         }
