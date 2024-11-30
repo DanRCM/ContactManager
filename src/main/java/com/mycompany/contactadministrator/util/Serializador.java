@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.mycompany.contactadministrator.ContactAdministratorApp;
 import com.mycompany.contactadministrator.model.Contacto;
 
 public class Serializador {
@@ -25,7 +24,6 @@ public class Serializador {
     public static void serializarLista(OurCircularDoubleList<Contacto> lista, String ruta) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ruta))) {
             out.writeObject(lista);
-            System.out.println("Lista serializada correctamente.");
         } catch (IOException e) {
             System.err.println("Error al serializar la lista: " + e.getMessage());
         }

@@ -35,19 +35,19 @@ public class ContactoPersona extends Contacto{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
-        sb.append("Tipo de relación: ").append(tipoRelacion).append("\n");
-        sb.append("Fecha de Nacimiento: ").append(fechaNacimiento).append("\n");
+        sb.append("Tipo de relación: ").append(!tipoRelacion.isEmpty() ? tipoRelacion: "Desconocida").append("\n");
+        sb.append("Fecha de Nacimiento: ").append(fechaNacimiento != null ? fechaNacimiento: "No disponible").append("\n");
         return sb.toString();
     }
 
     // Método para convertir String a LocalDate
     public static LocalDate convertirStringADate(String fechaStr) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato de fecha
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             return LocalDate.parse(fechaStr, formatter);
         } catch (DateTimeParseException e) {
-            //System.out.println("Formato de fecha inválido.");
-            return null; // O manejar el error de otra manera
+            System.out.println("Formato de fecha inválido.");
+            return null;
         }
     }
 }

@@ -20,7 +20,7 @@ public class MenuFiltro {
         System.out.println("2. País de residencia");
         System.out.println("3. Mes de cumpleaños");
         int opcion = Inputs.pedirInputNumerico();
-        OurCircularDoubleList<Contacto> listaFiltrada = new OurCircularDoubleList<>();
+        OurCircularDoubleList<Contacto> listaFiltrada;
         switch (opcion) {
             case 1:
                 System.out.print("Ingrese el término de búsqueda: ");

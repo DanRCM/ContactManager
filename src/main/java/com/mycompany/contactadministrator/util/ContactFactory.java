@@ -15,7 +15,7 @@ public class ContactFactory {
 
     public ContactoPersona crearContactoPersona() {
         System.out.println("Ingresa el nombre: ");
-        String nombre = input.nextLine();
+        String nombre = ingresarNombre(input);
         System.out.println("Ingresa el apellido: ");
         String apellido = input.nextLine();
         System.out.println("Ingresa el pais: ");
@@ -27,17 +27,7 @@ public class ContactFactory {
         Direccion direccionFinal = new Direccion(pais, direccion, direccionLink);
         System.out.println("Ingresa la relación con la persona: ");
         String relacion = input.nextLine();
-        LocalDate fechaNacimiento = null;
-        do {
-            System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
-            String fechaNacimientoStr = input.nextLine();
-            fechaNacimiento = ContactoPersona.convertirStringADate(fechaNacimientoStr);
-
-            if (fechaNacimiento == null) {
-                System.out.println("Fecha de nacimiento no válida.");
-            }
-        } while (fechaNacimiento == null);
-
+        LocalDate fechaNacimiento = fechaNacimiento();
 
         ContactoPersona contacto = new ContactoPersona(nombre, apellido, direccionFinal, relacion, fechaNacimiento);
         agregarDetallesContacto(contacto);
@@ -46,7 +36,7 @@ public class ContactFactory {
 
     public ContactoEmpresa crearContactoEmpresa() {
         System.out.println("Ingresa el nombre: ");
-        String nombre = input.nextLine();
+        String nombre = ingresarNombre(input);
         System.out.println("Ingresa el apellido: ");
         String apellido = input.nextLine();
         System.out.println("Ingresa el pais : ");
@@ -57,7 +47,7 @@ public class ContactFactory {
         String linkDireccion = input.nextLine();
         Direccion direccionFinal = new Direccion(pais, direccion, linkDireccion);
         System.out.println("Ingresa el nombre de la empresa: ");
-        String nombreEmpresa = input.nextLine();
+        String nombreEmpresa = ingresarNombreEmpresa(input);
         System.out.println("Ingresa el cargo en la empresa: ");
         String cargo = input.nextLine();
 
@@ -86,5 +76,48 @@ public class ContactFactory {
         System.out.println("Ingresa la dirección de una foto: ");
         String f = input.nextLine();
         contacto.agregarFoto(new Foto(f));
+    }
+
+    public String ingresarNombre(Scanner scanner) {
+        String nombre;
+        do {
+            nombre = scanner.nextLine();
+
+            if (nombre.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío. Por favor, intenta de nuevo.");
+            }
+        } while (nombre.isEmpty());
+
+        return nombre;
+    }
+
+    public String ingresarNombreEmpresa(Scanner scanner){
+        String nombre;
+        do {
+            nombre = scanner.nextLine();
+
+            if (nombre.isEmpty()) {
+                System.out.println("El nombre no puede estar vacio, por favor ingrese un nombre valido");
+            }
+        } while (nombre.isEmpty());
+
+        return nombre;
+    }
+
+    public LocalDate fechaNacimiento(){
+        LocalDate fechaNacimiento = null;
+        do {
+            System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
+            String fechaNacimientoStr = input.nextLine();
+            if(fechaNacimientoStr.isEmpty()){
+                return null;
+            }
+            fechaNacimiento = ContactoPersona.convertirStringADate(fechaNacimientoStr);
+
+            if (fechaNacimiento == null) {
+                System.out.println("Fecha de nacimiento no válida.");
+            }
+        } while (fechaNacimiento == null);
+        return fechaNacimiento;
     }
 }

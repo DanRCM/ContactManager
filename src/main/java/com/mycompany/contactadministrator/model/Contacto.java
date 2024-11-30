@@ -1,6 +1,7 @@
 package com.mycompany.contactadministrator.model;
 
 import java.io.Serializable;
+import java.util.Scanner;
 
 import com.mycompany.contactadministrator.util.OurArrayList;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
@@ -37,6 +38,11 @@ public class    Contacto implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        while (nombre == null || nombre.isEmpty()) {
+            System.out.println("Se necesita un nombre: ");
+            Scanner scanner = new Scanner(System.in);
+            nombre = scanner.nextLine();
+        }
         this.nombre = nombre;
     }
 
@@ -94,6 +100,11 @@ public class    Contacto implements Serializable {
 
     // Métodos para agregar información
     public void agregarTelefono(String telefono) {
+        Scanner scanner = new Scanner(System.in);
+        while(!telefono.matches("[0-9]+")){
+            System.out.println("Por favor ingrese un numero valido");
+            telefono = scanner.nextLine();
+        }
         telefonos.agregar(telefono);
     }
 
@@ -127,8 +138,12 @@ public class    Contacto implements Serializable {
         }
 
         sb.append("Emails: \n");
-        for (Email email : emails) {
-            sb.append(" - ").append(email).append("\n");
+        if(emails.estaVacia()){
+            sb.append("Sin emails disponibles \n");
+        }else{
+            for (Email email : emails) {
+                sb.append(" - ").append(email).append("\n");
+            }
         }
 
         sb.append("Redes Sociales: \n");
@@ -137,10 +152,13 @@ public class    Contacto implements Serializable {
         }
 
         sb.append("Fotos: \n");
-        for (Foto foto : fotos) {
-            sb.append(" - ").append(foto).append("\n");
+        if(fotos.estaVacia()){
+            sb.append("Sin fotos disponibles\n");
+        }else{
+            for (Foto foto : fotos) {
+                sb.append(" - ").append(foto).append("\n");
+            }
         }
-
         sb.append("Contactos Asociados: \n");
 
         OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactosAsociados.iterator();
@@ -149,7 +167,7 @@ public class    Contacto implements Serializable {
             sb.append("-").append(iterator.peek().nombre).append(" ").append(iterator.peek().apellido).append("\n");
             iterator.next();
         }else{
-            sb.append("Sin Contactos Asociados\n");
+            sb.append("- Sin Contactos Asociados\n");
         }
 
         return sb.toString();

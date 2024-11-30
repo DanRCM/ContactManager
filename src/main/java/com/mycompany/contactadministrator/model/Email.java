@@ -35,6 +35,18 @@ public class Email implements Serializable {
 
     @Override
     public String toString() {
-        return tipo + ": " + direccion;
+        if (tipo == null || tipo.isEmpty()) {
+            if (direccion == null || direccion.isEmpty()) {
+                return "No disponible";
+            } else {
+                return direccion;
+            }
+        } else {
+            if (direccion == null || direccion.isEmpty()) {
+                return tipo;
+            } else {
+                return tipo + ": " + direccion;
+            }
+        }
     }
 }

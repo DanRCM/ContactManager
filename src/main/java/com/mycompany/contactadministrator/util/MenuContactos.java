@@ -166,9 +166,9 @@ public class MenuContactos {
     private static void editarDireccion(Contacto contacto, Scanner scanner) {
         System.out.println("Nuevo pais: ");
         String nuevoPais = scanner.nextLine();
-        System.out.print("Nueva dirección: ");
+        System.out.println("Nueva dirección: ");
         String nuevaDireccion = scanner.nextLine();
-        System.out.println("Ingresa el link de la nueva dirección");
+        System.out.println("Ingresa el link de la nueva dirección: ");
         String linkNuevaDireccion = scanner.nextLine();
         Direccion nuevaDireccionFinal = new Direccion(nuevoPais, nuevaDireccion, linkNuevaDireccion);
         contacto.setDireccion(nuevaDireccionFinal);
@@ -406,7 +406,7 @@ public class MenuContactos {
             // Comprobar el contacto actual
             if (primerContacto.getNombre().toLowerCase().contains(terminoBusqueda) ||
                     primerContacto.getApellido().toLowerCase().contains(terminoBusqueda)) {
-                System.out.println("Contacto encontrado: " + primerContacto);
+                System.out.println("Contacto encontrado: \n" + primerContacto);
                 encontrado = true;
             }
 

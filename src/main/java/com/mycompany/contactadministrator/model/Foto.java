@@ -25,6 +25,6 @@ public class Foto implements Serializable {
 
     @Override
     public String toString() {
-        return url;
+        return !url.isEmpty() ? url: "No disponible";
     }
 }

@@ -37,7 +37,25 @@ public class Direccion implements Serializable {
 
     @Override
     public String toString() {
-        return (pais != null ? pais.toUpperCase() +" " : " ") + direccion + (enlaceGoogleMaps != null ? " (" + enlaceGoogleMaps + ")" : "");
+        if ((pais == null || pais.isEmpty()) && (direccion == null || direccion.isEmpty()) && (enlaceGoogleMaps == null || enlaceGoogleMaps.isEmpty())) {
+            return "No disponible";
+        }
+
+        StringBuilder resultado = new StringBuilder();
+
+        if (pais != null && !pais.isEmpty()) {
+            resultado.append(pais.toUpperCase()).append(" ");
+        }
+
+        if (direccion != null && !direccion.isEmpty()) {
+            resultado.append(direccion);
+        }
+
+        if (enlaceGoogleMaps != null && !enlaceGoogleMaps.isEmpty()) {
+            resultado.append(" (").append(enlaceGoogleMaps).append(")");
+        }
+
+        return resultado.toString().trim();
     }
 }
 

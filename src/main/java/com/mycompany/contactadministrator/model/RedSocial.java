@@ -32,6 +32,25 @@ public class RedSocial implements Serializable {
 
     @Override
     public String toString() {
-        return redSocialNombre + ": " + identificador;
+        StringBuilder resultado = new StringBuilder();
+
+        boolean tieneIdentificador = !identificador.isEmpty();
+        boolean tieneRedSocialNombre = !redSocialNombre.isEmpty();
+
+        if (!tieneIdentificador && !tieneRedSocialNombre) {
+            return "Sin redes sociales";
+        }
+
+        if (tieneIdentificador) {
+            if (tieneRedSocialNombre) {
+                resultado.append(redSocialNombre).append(" : ").append(identificador);
+            } else {
+                resultado.append("Red social: ").append(identificador);
+            }
+        } else {
+            resultado.append("Usuario de red social: ").append(identificador);
+        }
+
+        return resultado.toString();
     }
 }

@@ -8,19 +8,22 @@ public class MenuOrdenar {
 
     public static void ejecutarMenuOrdenar(OurCircularDoubleList<Contacto> listaC) {
         mostrarOpcionesOrdenamiento();
-        manejarOpcionesOrdenamiento(listaC);
-        System.out.println("Lista de contactos ordenada:");
-        listaC.printList();
-        Serializador.serializarLista(listaC, "contactos.p1");
+        if(manejarOpcionesOrdenamiento(listaC)){
+            System.out.println("Lista de contactos ordenada:");
+            listaC.printList();
+            Serializador.serializarLista(listaC, "contactos.p1");
+        }else{
+            ejecutarMenuOrdenar(listaC);
+        }
     }
 
     public static void mostrarOpcionesOrdenamiento() {
-        System.out.println("[1] Ordenar por nombre");
+        System.out.println("[1] Ordenar por apellido y nombre");
         System.out.println("[2] Ordenar por empresa");
         System.out.println("[3] Ordenar por pais");
     }
 
-    public static void manejarOpcionesOrdenamiento(OurCircularDoubleList<Contacto> lista) {
+    public static boolean manejarOpcionesOrdenamiento(OurCircularDoubleList<Contacto> lista) {
         System.out.println("Elige una forma de ordenar: ");
         int opcion = Inputs.pedirInputNumerico();
 
@@ -28,18 +31,17 @@ public class MenuOrdenar {
             case 1:
                 System.out.println("Ordenando por apellido y nombre: ");
                 lista.ordenar(Comparadores.POR_NOMBRE);
-                break;
+                return true;
             case 2:
                 System.out.println("Ordenando por empresa: ");
                 lista.ordenar(Comparadores.POR_EMPRESA);
-                break;
+                return true;
             case 3:
                 System.out.println("Ordenando por pais: ");
                 lista.ordenar(Comparadores.POR_PAIS);
-                break;
+                return true;
             default:
-                System.out.println("No se escogió una opción válida.");
-                break;
+                return false;
         }
     }
 }
