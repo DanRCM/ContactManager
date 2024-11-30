@@ -36,9 +36,9 @@ public class ContactoEmpresa extends Contacto{
     // Method para mostrar detalles del contacto de empresa
     @Override
     public String toString() {
-        String sb = super.toString() + // Llama al método toString() de la clase padre
+        // Llama al método toString() de la clase padre
+        return super.toString() + // Llama al método toString() de la clase padre
                 "Nombre de la empresa: " + nombreEmpresa + "\n" +
                 "Cargo: " + cargo + "\n";
-        return sb;
     }
 }

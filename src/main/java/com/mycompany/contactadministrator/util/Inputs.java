@@ -7,7 +7,6 @@ public class Inputs {
      * Pide un numero y valida que sea un numero,
      * puedes mandar strings y no se cae xd
      * 
-     * @param input Scanner
      * @return -1 si no se ingreso un valor numerico
      */
     public static int pedirInputNumerico() {

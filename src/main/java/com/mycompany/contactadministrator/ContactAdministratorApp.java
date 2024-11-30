@@ -3,6 +3,7 @@ package com.mycompany.contactadministrator;
 import com.mycompany.contactadministrator.model.*;
 import com.mycompany.contactadministrator.util.*;
 
+import com.mycompany.contactadministrator.util.VCard.VCardExporter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,8 +38,9 @@ public class ContactAdministratorApp{
 //    }
 
     public static void main(String[] args) {
-        OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1"); //carga la lista guardada, si no hay, usa DataLoader para generar una
 
+        OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1"); //carga la lista guardada, si no hay, usa DataLoader para generar una
+        VCardExporter.exportToVCard(contactos);
         MenuPrincipal.ejecutarMenu(contactos);
         //launch();
     }
