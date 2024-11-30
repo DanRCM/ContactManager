@@ -32,6 +32,7 @@ public class MenuPrincipal {
                     break;
                 case 4:
                     MenuFiltro.filtrarContactos(contactos);
+                    break;
                 case 5:
                     System.out.println("Cerrando el programa...");
                     Serializador.serializarLista(contactos, "contactos.p1");
@@ -39,6 +40,6 @@ public class MenuPrincipal {
                 default:
                     System.out.println("Opción no válida \n ");
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 }

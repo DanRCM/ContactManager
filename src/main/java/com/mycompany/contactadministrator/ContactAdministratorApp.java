@@ -37,7 +37,7 @@ public class ContactAdministratorApp{
 //    }
 
     public static void main(String[] args) {
-        OurCircularDoubleList<Contacto> contactos = DataLoader.cargarDatos();
+        OurCircularDoubleList<Contacto> contactos = Serializador.deserializarLista("contactos.p1"); //carga la lista guardada, si no hay, usa DataLoader para generar una
 
         MenuPrincipal.ejecutarMenu(contactos);
         //launch();

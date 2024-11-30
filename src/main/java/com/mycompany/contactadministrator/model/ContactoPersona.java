@@ -46,7 +46,7 @@ public class ContactoPersona extends Contacto{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Formato de fecha
             return LocalDate.parse(fechaStr, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Formato de fecha inválido: " + e.getMessage());
+            //System.out.println("Formato de fecha inválido.");
             return null; // O manejar el error de otra manera
         }
     }

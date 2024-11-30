@@ -27,14 +27,17 @@ public class ContactFactory {
         Direccion direccionFinal = new Direccion(pais, direccion, direccionLink);
         System.out.println("Ingresa la relación con la persona: ");
         String relacion = input.nextLine();
-        System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
-        String fechaNacimientoStr = input.nextLine();
-        LocalDate fechaNacimiento = ContactoPersona.convertirStringADate(fechaNacimientoStr);
+        LocalDate fechaNacimiento = null;
+        do {
+            System.out.println("Ingresa su fecha de nacimiento (formato: dd/MM/yyyy): ");
+            String fechaNacimientoStr = input.nextLine();
+            fechaNacimiento = ContactoPersona.convertirStringADate(fechaNacimientoStr);
 
-        if (fechaNacimiento == null) {
-            System.out.println("Fecha de nacimiento no válida. Contacto no creado.");
-            return null; // O manejar el error de otra manera
-        }
+            if (fechaNacimiento == null) {
+                System.out.println("Fecha de nacimiento no válida.");
+            }
+        } while (fechaNacimiento == null);
+
 
         ContactoPersona contacto = new ContactoPersona(nombre, apellido, direccionFinal, relacion, fechaNacimiento);
         agregarDetallesContacto(contacto);
