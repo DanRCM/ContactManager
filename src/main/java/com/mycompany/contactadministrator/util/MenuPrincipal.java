@@ -1,6 +1,7 @@
 package com.mycompany.contactadministrator.util;
 
 import com.mycompany.contactadministrator.model.Contacto;
+import com.mycompany.contactadministrator.util.VCard.VCardExporter;
 
 public class MenuPrincipal {
 
@@ -11,7 +12,8 @@ public class MenuPrincipal {
         System.out.println("[2] Buscar contactos");
         System.out.println("[3] Ordenar contactos segun criterios");
         System.out.println("[4] Filtrar contactos segun criterios");
-        System.out.println("[5] Cerrar ContactManager y guardar lista de contactos.");
+        System.out.println("[5] Exportar los contactos a vCard");
+        System.out.println("[6] Cerrar ContactManager y guardar lista de contactos.");
         System.out.println("");
     }
 
@@ -34,12 +36,15 @@ public class MenuPrincipal {
                     MenuFiltro.filtrarContactos(contactos);
                     break;
                 case 5:
+                    VCardExporter.exportToVCard(contactos);
+                    break;
+                case 6:
                     System.out.println("Cerrando el programa...");
                     Serializador.serializarLista(contactos, "contactos.p1");
                     break;
                 default:
                     System.out.println("Opción no válida \n ");
             }
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
 }

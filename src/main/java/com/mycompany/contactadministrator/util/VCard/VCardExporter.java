@@ -8,7 +8,6 @@ import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.UUID;
 
 public class VCardExporter {
 
@@ -23,7 +22,7 @@ public class VCardExporter {
 
         do {
             Contacto actual = iterator.peek();
-            try (BufferedWriter bf = new BufferedWriter(new FileWriter(actual.getNombre()+actual.getApellido()+actual.getTelefonos().obtener(0)+".vcf"))) {
+            try (BufferedWriter bf = new BufferedWriter(new FileWriter("contactosExportados\\"+actual.getNombre()+actual.getApellido()+actual.getTelefonos().obtener(0)+".vcf"))) {
                 bf.write("BEGIN:VCARD");
                 bf.newLine();
                 bf.write("VERSION:4.0");
@@ -53,6 +52,7 @@ public class VCardExporter {
                         // Saca la fecha en formato YYYYMMDD
                         anioMesDia anioMesDia = getAnioMesDia(contactoPersona);
                         bf.write("BDAY:" + anioMesDia.y + anioMesDia.m + anioMesDia.d);
+                        bf.newLine();
                     } else if (actual instanceof ContactoEmpresa){
                         ContactoEmpresa contactoEmpresa = (ContactoEmpresa) actual;
                         bf.write("ORG:"+VCardEscaper.escape(contactoEmpresa.getNombreEmpresa()));
@@ -84,17 +84,20 @@ public class VCardExporter {
                         } while (iterator2.peek() != cabeza1);
                     }
                 }
+                bf.write("END:VCARD");
+                bf.newLine();
             } catch (IOException e) {
-                System.out.println("No se pudo crear el archivo.");
+                System.out.println("Error al exportar los contactos");
                 throw new RuntimeException(e);
             }
 
 
             iterator.next();
         } while (iterator.peek() != cabeza);
+        System.out.println("Contactos exportados correctamente. (en carpeta contactosExportados)");
     }
 
-    private static anioMesDia getAnioMesDia(ContactoPersona contactoPersona) { // NO ES MI CULPA, asi lo refactorizo intellij
+    private static anioMesDia getAnioMesDia(ContactoPersona contactoPersona) { // NO ES MI CULPA DANIEL, asi lo refactorizo intellij
         String y = String.valueOf(contactoPersona.getFechaNacimiento().getYear());
         String m = String.valueOf(contactoPersona.getFechaNacimiento().getMonthValue());
         String d = String.valueOf(contactoPersona.getFechaNacimiento().getDayOfMonth());
@@ -102,8 +105,7 @@ public class VCardExporter {
             m = "0" + m;
         if (d.length() == 1)
             d = "0" + d;
-        anioMesDia result = new anioMesDia(y, m, d);
-        return result;
+        return new anioMesDia(y, m, d);
     }
 
     private static class anioMesDia {
@@ -119,8 +121,4 @@ public class VCardExporter {
     }
 
 
-    private static String generarNombreArchivoConUUID(String nombre) {
-        String uuid = UUID.randomUUID().toString();
-        return nombre + "_" + uuid + ".vcf";
-    }
 }
