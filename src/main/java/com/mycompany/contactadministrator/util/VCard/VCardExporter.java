@@ -6,6 +6,7 @@ import com.mycompany.contactadministrator.model.ContactoPersona;
 import com.mycompany.contactadministrator.util.OurCircularDoubleList;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -15,6 +16,10 @@ public class VCardExporter {
         if (contactos.estaVacia()) {
             System.out.println("No hay contactos que exportar");
             return;
+        }
+        File directorio = new File("contactosExportados");
+        if (!directorio.exists()) {
+            directorio.mkdirs();  // Crea la carpeta si no existe
         }
 
         OurCircularDoubleList<Contacto>.OurCircularDoubleListIterator iterator = contactos.iterator();
