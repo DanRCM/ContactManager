@@ -51,16 +51,15 @@ public class VCardExporter {
                     if (actual instanceof ContactoPersona){
                         ContactoPersona contactoPersona = (ContactoPersona) actual;
                         // Saca la fecha en formato YYYYMMDD
-                        String y = String.valueOf(contactoPersona.getFechaNacimiento().getYear());
-                        String m = String.valueOf(contactoPersona.getFechaNacimiento().getMonthValue());
-                        String d = String.valueOf(contactoPersona.getFechaNacimiento().getDayOfMonth());
-                        bf.write("BDAY:"+y+m+d);
-                        bf.newLine();
+                        anioMesDia anioMesDia = getAnioMesDia(contactoPersona);
+                        bf.write("BDAY:" + anioMesDia.y + anioMesDia.m + anioMesDia.d);
                     } else if (actual instanceof ContactoEmpresa){
                         ContactoEmpresa contactoEmpresa = (ContactoEmpresa) actual;
                         bf.write("ORG:"+VCardEscaper.escape(contactoEmpresa.getNombreEmpresa()));
                         bf.newLine();
                         bf.write("ROLE:"+contactoEmpresa.getCargo());
+                        bf.newLine();
+                        bf.write("TITLE:" + contactoEmpresa.getCargo());
                         bf.newLine();
                     }
 
@@ -93,6 +92,30 @@ public class VCardExporter {
 
             iterator.next();
         } while (iterator.peek() != cabeza);
+    }
+
+    private static anioMesDia getAnioMesDia(ContactoPersona contactoPersona) { // NO ES MI CULPA, asi lo refactorizo intellij
+        String y = String.valueOf(contactoPersona.getFechaNacimiento().getYear());
+        String m = String.valueOf(contactoPersona.getFechaNacimiento().getMonthValue());
+        String d = String.valueOf(contactoPersona.getFechaNacimiento().getDayOfMonth());
+        if (m.length() == 1)
+            m = "0" + m;
+        if (d.length() == 1)
+            d = "0" + d;
+        anioMesDia result = new anioMesDia(y, m, d);
+        return result;
+    }
+
+    private static class anioMesDia {
+        public final String y;
+        public final String m;
+        public final String d;
+
+        public anioMesDia(String y, String m, String d) {
+            this.y = y;
+            this.m = m;
+            this.d = d;
+        }
     }
 
 
