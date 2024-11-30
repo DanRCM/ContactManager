@@ -20,13 +20,15 @@ public class MenuFiltro {
         System.out.println("2. País de residencia");
         System.out.println("3. Mes de cumpleaños");
         int opcion = Inputs.pedirInputNumerico();
-        scanner.nextLine();
         OurCircularDoubleList<Contacto> listaFiltrada = new OurCircularDoubleList<>();
         switch (opcion) {
             case 1:
                 System.out.print("Ingrese el término de búsqueda: ");
                 String terminoBusqueda = scanner.nextLine().toLowerCase();
-
+                if (terminoBusqueda.isEmpty()) {
+                    System.out.println("Ingresa un texto no vacio.");
+                    break;
+                }
                 listaFiltrada = filtrarPorTermino(contactos, terminoBusqueda);
                 mostrarListaFiltrada(listaFiltrada);
                 break;
@@ -34,6 +36,10 @@ public class MenuFiltro {
             case 2:
                 System.out.print("Ingrese el país de residencia: ");
                 String pais = scanner.nextLine().toLowerCase();
+                if (pais.isEmpty()) {
+                    System.out.println("Ingresa un texto no vacio.");
+                    break;
+                }
                 listaFiltrada = filtrarPorPais(contactos, pais);
                 mostrarListaFiltrada(listaFiltrada);
                 break;
@@ -41,7 +47,10 @@ public class MenuFiltro {
             case 3:
                 System.out.print("Ingrese el número del mes (1-12): ");
                 int mes = Inputs.pedirInputNumerico();
-                scanner.nextLine();
+                if (mes<1 || mes>13){ //verifica si es un mes valido
+                    System.out.println("Ingrese un numero de mes valido");
+                    break;
+                }
                 listaFiltrada = filtrarPorMes(contactos, mes);
                 mostrarListaFiltrada(listaFiltrada);
                 break;
@@ -57,6 +66,7 @@ public class MenuFiltro {
         else {
             System.out.println("==============================================");
             System.out.println("Mostrando lista filtrada:");
+            System.out.println("Numero de elementos que coinciden con el filtro: " + listaFiltrada.tamano());
             MenuContactos.mostrarMenuContactos(listaFiltrada);
             System.out.println("Saliendo de la lista filtrada.");
             System.out.println("==============================================");
